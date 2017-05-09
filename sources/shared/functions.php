@@ -1,16 +1,16 @@
 <?php
 //--------------------------
 //Filename: functions.php
-//Creation date: 08.03.2017
+//Creation date: 09.05.2017
 //Author: Luc Wachter
 //Function: Transfers the queries to the database and returns the results, other functions
-//Last modification: 23.03.2017
+//Last modification: 09.05.2017
 //--------------------------
 
-function DBRequest($req, $type_req){
+function dbRequest($req, $type_req){
     try{
         //Connection to the tasking database
-        $connect = new PDO('mysql:host=172.17.102.104; dbname=tasking_db;charset=utf8', 'tasking', 'Fu4XvUNpa4yjX7Xr');
+        $connect = new PDO('mysql:host=localhost; dbname=kairos_db;charset=utf8', 'root', 'root');
         
         //Allows to get more information from errors
         $connect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
