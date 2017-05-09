@@ -1,6 +1,6 @@
 <?php
 
-$title = "Kairos - Register";
+$title = "Kairos - Inscription";
 
 //To execute when the form is submitted
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -16,6 +16,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 				  WHERE user_pseudo = '".$fPseudo."'";
 	$pseudoRes = dbRequest($pseudoReq, "select");
 	$line = $pseudoRes->fetch();
+
+	//Check email availability
+	$emailReq = "SELECT user_mail FROM user
+				 WHERE user_mail = '".$fEmail."'";
+	$emailRes = dbRequest($pseudoReq, "select");
+	$eLine = $emailRes->fetch();
 	//-----------------------------------------------------------
 
 	if($fPseudo == '' || $fEmail == '' || $fPassword == '' || $fPassword2 == ''){
@@ -27,9 +33,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	elseif($line['pseudo'] == $fPseudo){
 		header('location:'.URL.'/?page=register&info=existingPseudo');
 	}
+	elseif($eLine['user_mail'] == $fEmail){
+		header('location:'.URL.'/?page=register&info=existingEmail');
+	}
 	else{
+		$hashedPassword = password_hash($fPassword, PASSWORD_DEFAULT);
+
 		$registerReq = "INSERT INTO user (user_pseudo, user_mail, user_password, user_isAdmin)
-						VALUES ('".$fPseudo."', '".$fEmail."', '".sha1($fPassword)."', 0)";
+						VALUES ('".$fPseudo."', '".$fEmail."', '".$hashedPassword."', 0)";
         dbRequest($registerReq, "insert");
 
     	header('location:'.URL.'?page=login&info=success');

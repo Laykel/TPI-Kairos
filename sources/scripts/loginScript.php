@@ -1,6 +1,6 @@
 <?php
 
-$title = "Kairos - Login";
+$title = "Kairos - Connexion";
 
 //To execute when the form is submitted
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -18,7 +18,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	if($fPseudo == '' || $fPassword == ''){
 		header('location:'.URL.'/?page=login&info=errorEmpty');
 	}
-	elseif(sha1($fPassword) != $line['user_password']){
+	elseif(!password_verify($fPassword, $line['user_password'])){
 		header('location:'.URL.'/?page=login&info=errorCo');
 	}
 	else{

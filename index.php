@@ -65,25 +65,28 @@ if(file_exists($script)){
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="<?php echo URL; ?>">KairosProjects</a>
+          <a class="navbar-brand" href="<?php echo URL;?>">KairosProjects</a>
         </div>
 
-        <div class="collapse navbar-collapse" id="navbar">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Projets<span class="sr-only">(current)</span></a></li>
-            <li><a href="#">Journal</a></li>
-          </ul>
+		<?php if($connected){ ?>
+          <div class="collapse navbar-collapse" id="navbar">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="#">Projets<span class="sr-only">(current)</span></a></li>
+              <li><a href="#">Journal</a></li>
+              <?php if($admin){ ?> <li><a href="#">Administration</a></li> <?php } ?>
+            </ul>
 
-          <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> Pseudonyme<span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="#">Modifier profil</a></li>
-                <li><a href="<?php echo URL; ?>?page=logout">Déconnexion</a></li>
-              </ul>
-            </li>
-          </ul>
-        </div>
+            <ul class="nav navbar-nav navbar-right">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> <?php echo $pseudo;?><span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="#">Modifier profil</a></li>
+                  <li><a href="<?php echo URL; ?>?page=logout">Déconnexion</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+	    <?php } ?>
       </div>
     </nav>
     <!-- Fin de Navigation -->
