@@ -4,7 +4,6 @@
 //Creation date: 09.05.2017
 //Author: Luc Wachter
 //Function: Main page, includes scripts and secondary pages
-//Last modification: 09.05.2017
 //--------------------------
 
 session_start();
@@ -73,7 +72,7 @@ if(file_exists($script)){
 
             <ul class="nav navbar-nav navbar-right">
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> <?php echo $_SESSION['pseudo'];?><span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> <?php echo $_SESSION['pseudo'];?> <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
                   <li><a href="<?php echo URL; ?>?page=profile">Modifier profil</a></li>
                   <li><a href="<?php echo URL; ?>?page=logout">Déconnexion</a></li>

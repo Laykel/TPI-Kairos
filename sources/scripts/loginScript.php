@@ -4,7 +4,6 @@
 //Creation date: 09.05.2017
 //Author: Luc Wachter
 //Function: The script part of the login page
-//Last modification: 09.05.2017
 //--------------------------
 
 $title = "Kairos - Connexion";

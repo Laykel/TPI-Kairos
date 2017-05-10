@@ -5,33 +5,26 @@
   <!-- Fin des messages d'alerte -->
 
   <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Nouveau projet</button> <br><br>
-  <div class="panel panel-primary">
-    <div class="panel-heading">
-      <h3 class="panel-title">Projet numéro 1</h3>
-    </div>
-    <div class="panel-body">
-      
-    </div>
-    <div class="panel-footer">
-      
-    </div>
-  </div>
-  <div class="panel panel-primary">
-    <div class="panel-heading">
-      <h3 class="panel-title">Liste de course</h3>
-    </div>
-    <div class="panel-body">
-      <div class="col-sm-8">
-        <input class="form-control" id="inputTitre" placeholder="Nouvelle tâche" type="text">
-        </div><div class="col-sm-1">
-        <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></button>
-      </div>
-    </div>
-    <div class="panel-footer">
-      
-    </div>
-  </div>
+
+  <?php foreach($projectTab as $project){ ?>
+	  <div class="panel panel-primary">
+	    <div class="panel-heading">
+	      <h3 class="panel-title"><?php echo $project['project_title'];?></h3>
+	    </div>
+	    <div class="panel-body">
+	      <?php 
+	      	foreach($project['task'] as $task){
+	      		echo $task['task_title'];
+	      	}
+	      ?>
+	    </div>
+	    <div class="panel-footer">
+	      <p>Total du temps passé: ...</p>
+	    </div>
+	  </div>
+  <?php } ?>
 </div>
+
 <div class="col-sm-5">
   <div class="panel panel-info">
     <div class="panel-heading">
@@ -72,7 +65,7 @@
           </div>
           <div class="form-group">
             <div class="col-lg-10 col-lg-offset-2">
-              <button type="submit" class="btn btn-info">Soumettre</button>
+              <button type="submit" class="btn btn-info pull-right">Soumettre</button>
             </div>
           </div>
         </fieldset>

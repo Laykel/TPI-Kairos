@@ -4,7 +4,6 @@
 //Creation date: 10.05.2017
 //Author: Luc Wachter
 //Function: The script part of the profile page
-//Last modification: 10.05.2017
 //--------------------------
 
 $title = "Kairos - Profil";
@@ -48,53 +47,25 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 		if($fPseudo != ''){
 			$pseudoReq = "UPDATE user SET user_pseudo = '".$fPseudo."'
 						  WHERE user_id = ".$_SESSION['user_id'];
+			dbRequest($pseudoReq, "update");
+
+			$_SESSION['pseudo'] = $fPseudo;
 		}
 		if($fEmail != '') {
 			$mailReq = "UPDATE user SET user_mail = '".$fEmail."'
 					    WHERE user_id = ".$_SESSION['user_id'];
+			dbRequest($mailReq, "update");
 		}
 		if($fPassword != '') {
 			$passwordReq = "UPDATE user SET user_password = '".$hashedPassword."'
 						    WHERE user_id = ".$_SESSION['user_id'];
+			dbRequest($passwordReq, "update");
 		}
 
-    	header('location:'.URL.'?page=home&info=profileSuccess');
+    	header('location:'.URL.'?page=home&profileSuccess');
     }
     else{
     	header('location:'.URL.'/?page=profile'.$qstring);
     }
-
-	/*if($fPseudo == '' && $fEmail == '' && $fPassword == '' && $fPassword2 == ''){
-		header('location:'.URL.'/?page=profile&info=errorEmpty');
-	}
-	elseif($fPassword != $fPassword2){
-		header('location:'.URL.'/?page=profile&info=errorPswd');
-	}
-	elseif($pseudoAvailable){
-		header('location:'.URL.'/?page=profile&info=existingPseudo');
-	}
-	elseif($mailAvailable){
-		header('location:'.URL.'/?page=profile&info=existingEmail');
-	}
-	else{
-		$hashedPassword = password_hash($fPassword, PASSWORD_DEFAULT);
-
-		if($fPseudo != ''){
-			$pseudoReq = "UPDATE user SET user_pseudo = '".$fPseudo."'
-						 WHERE user_id = ".$_SESSION['user_id'];
-		}
-		
-		if($fEmail != '') {
-			$mailReq = "UPDATE user SET user_mail = '".$fEmail."'
-					   WHERE user_id = ".$_SESSION['user_id'];
-		}
-		
-		if($fPassword != '') {
-			$passwordReq = "UPDATE user SET user_password = '".$hashedPassword."'
-						   WHERE user_id = ".$_SESSION['user_id'];
-		}
-
-    	header('location:'.URL.'?page=home&info=profileSuccess');
-    }*/
 }
 ?>

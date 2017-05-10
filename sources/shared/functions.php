@@ -4,7 +4,6 @@
 //Creation date: 09.05.2017
 //Author: Luc Wachter
 //Function: Transfers the queries to the database and returns the results, other functions
-//Last modification: 10.05.2017
 //--------------------------
 
 function dbRequest($req, $type_req){

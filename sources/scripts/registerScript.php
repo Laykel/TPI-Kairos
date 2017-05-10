@@ -4,7 +4,6 @@
 //Creation date: 09.05.2017
 //Author: Luc Wachter
 //Function: The script part of the register page
-//Last modification: 09.05.2017
 //--------------------------
 
 $title = "Kairos - Inscription";
@@ -43,7 +42,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 						VALUES ('".$fPseudo."', '".$fEmail."', '".$hashedPassword."', 0)";
         dbRequest($registerReq, "insert");
 
-    	header('location:'.URL.'?page=login&info=success');
+    	header('location:'.URL.'?page=login&success');
     }
     else{
     	header('location:'.URL.'/?page=register'.$qstring);
