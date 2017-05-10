@@ -3,35 +3,9 @@
 <div class="row">
 	<div class="col-sm-6 col-sm-offset-3">
 
-		<!-- Messages d'alerte PEUT-ETRE RENDRE CA COMMUN -->
-		<?php if(isset($_GET['info'])){ ?>
-
-			<?php if($_GET['info'] == 'errorPswd'){ ?>				
-				<div class="alert alert-dismissible alert-warning">
-					<button type="button" class="close" data-dismiss="alert">&times;</button>
-					<strong>Erreur!</strong> Les deux mots de passe ne sont pas les mêmes.
-				</div>
-			<?php }
-			elseif ($_GET['info'] == 'errorEmpty') { ?>
-				<div class="alert alert-dismissible alert-warning">
-					<button type="button" class="close" data-dismiss="alert">&times;</button>
-					<strong>Erreur!</strong> Veuillez remplir tous les champs.
-				</div>
-			<?php }
-			elseif ($_GET['info'] == 'existingEmail') { ?>
-				<div class="alert alert-dismissible alert-warning">
-					<button type="button" class="close" data-dismiss="alert">&times;</button>
-					<strong>Erreur!</strong> Il existe déjà un compte avec cette adresse e-mail.
-				</div>
-			<?php }
-			elseif ($_GET['info'] == 'existingPseudo') { ?>
-				<div class="alert alert-dismissible alert-warning">
-					<button type="button" class="close" data-dismiss="alert">&times;</button>
-					<strong>Erreur!</strong> Il existe déjà un compte avec ce pseudonyme.
-				</div>
-			<?php } ?>
-		<?php } ?>
-		<!-- Fin des messages d'alerte -->
+	    <!-- Messages d'alerte -->
+	    <?php include(ROOT."/sources/shared/alerts.php"); ?>
+	    <!-- Fin des messages d'alerte -->
 
 		<div class="panel panel-default">
 			<div class="panel-heading">
@@ -64,3 +38,9 @@
 		</div>
 	</div>
 </div>
+
+<script type="text/javascript">
+$( document ).ready(function() {
+    console.log( 'lol' );
+});
+</script>

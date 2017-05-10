@@ -1,4 +1,11 @@
 <?php
+//--------------------------
+//Filename: loginScript.php
+//Creation date: 09.05.2017
+//Author: Luc Wachter
+//Function: The script part of the login page
+//Last modification: 09.05.2017
+//--------------------------
 
 $title = "Kairos - Connexion";
 
@@ -15,19 +22,27 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	$userRes = dbRequest($userReq, "select");
 	$line = $userRes->fetch();
 
+	//-------- Data validation --------//
+	$qstring = '';
+
 	if($fPseudo == '' || $fPassword == ''){
-		header('location:'.URL.'/?page=login&info=errorEmpty');
+		$qstring .= "&errorEmpty";
 	}
-	elseif(!password_verify($fPassword, $line['user_password'])){
-		header('location:'.URL.'/?page=login&info=errorCo');
+	if(!password_verify($fPassword, $line['user_password'])){
+		$qstring .= "&errorCo";
 	}
-	else{
-		$_SESSION['connection'] = true;
+	//-------- End of data validation --------//
+
+	if($qstring == ''){
+		$_SESSION['isConnected'] = true;
     	$_SESSION['pseudo'] = $fPseudo;
     	$_SESSION['user_id'] = $line['user_id'];
-    	$_SESSION['admin'] = $line['user_isAdmin'];
+    	$_SESSION['isAdmin'] = $line['user_isAdmin'];
 
-    	header('location:'.URL.'?page=home&info=success');
+    	header('location:'.URL.'?page=home');
+    }
+    else{
+    	header('location:'.URL.'?page=login'.$qstring);
     }
 }
 ?>

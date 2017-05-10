@@ -4,7 +4,7 @@
 //Creation date: 09.05.2017
 //Author: Luc Wachter
 //Function: Transfers the queries to the database and returns the results, other functions
-//Last modification: 09.05.2017
+//Last modification: 10.05.2017
 //--------------------------
 
 function dbRequest($req, $type_req){
@@ -34,14 +34,23 @@ function dbRequest($req, $type_req){
 }
 
 //Function used to secure the output of forms
-function secureArray($array)
-{
-    foreach ($array as $key => $value) 
-    {
-        if(is_array($value)) 
+function secureArray($array){
+    foreach ($array as $key => $value){
+        if(is_array($value)){
             $array[$key] = secureArray($value);
-        else 
+        }
+        else{
             $array[$key] = htmlentities($value, ENT_QUOTES);
+        }
     }
     return $array;
+}
+
+function checkAvailable($data, $column){
+    $availableReq = "SELECT ".$column." FROM user
+                     WHERE ".$column." = '".$data."'";
+    $availableRes = dbRequest($availableReq, "select");
+    $line = $availableRes->fetch();
+
+    return $line;
 }

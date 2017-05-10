@@ -19,17 +19,8 @@ if(isset($_GET['page']) && $_GET['page'] != ''){
     $page = htmlspecialchars($_GET['page']);
 }
 
-//Creation of variables to facilitate access to user data
-$connected = false;
-if(isset($_SESSION['connection'])){
-    $connected = true;
-    $pseudo = $_SESSION['pseudo'];
-    $user_id = $_SESSION['user_id'];
-    $admin = $_SESSION['admin'];
-}
-
 //Restrict access to login and register for unconnected users
-if($connected == false){
+if(!isset($_SESSION['isConnected'])){
 	if($page != "login"  && $page != "register")
 		header('location:'.URL.'?page=login&info=notco');
 }
@@ -53,6 +44,10 @@ if(file_exists($script)){
 
     <link href="<?php echo ROOT;?>/assets/css/bootstrap-cosmo.css" rel="stylesheet" type="text/css"/>
     <link href="<?php echo ROOT;?>/assets/css/kairos-style.css" rel="stylesheet" type="text/css"/>
+
+    <!-- JavaScript libraries -->
+    <script type="text/javascript" src="<?php echo ROOT; ?>/assets/js/jquery.min.js"></script>
+    <script type="text/javascript" src="<?php echo ROOT; ?>/assets/js/bootstrap.min.js"></script>
   </head>
   <body>
 	<!-- Navigation -->
@@ -68,19 +63,19 @@ if(file_exists($script)){
           <a class="navbar-brand" href="<?php echo URL;?>">KairosProjects</a>
         </div>
 
-		<?php if($connected){ ?>
+		<?php if(isset($_SESSION['isConnected'])){ ?>
           <div class="collapse navbar-collapse" id="navbar">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="#">Projets<span class="sr-only">(current)</span></a></li>
-              <li><a href="#">Journal</a></li>
-              <?php if($admin){ ?> <li><a href="#">Administration</a></li> <?php } ?>
+              <li class="active"><a href="<?php echo URL; ?>?page=home">Projets<span class="sr-only">(current)</span></a></li>
+              <li><a href="<?php echo URL; ?>?page=journal">Journal</a></li>
+              <?php if($_SESSION['isAdmin']){ ?> <li><a href="<?php echo URL; ?>?page=admin">Administration</a></li> <?php } ?>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> <?php echo $pseudo;?><span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> <?php echo $_SESSION['pseudo'];?><span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                  <li><a href="#">Modifier profil</a></li>
+                  <li><a href="<?php echo URL; ?>?page=profile">Modifier profil</a></li>
                   <li><a href="<?php echo URL; ?>?page=logout">Déconnexion</a></li>
                 </ul>
               </li>
@@ -110,9 +105,5 @@ if(file_exists($script)){
       </div>
     </footer>
     <!-- Fin du footer -->
-
-    <!-- JavaScript libraries -->
-    <script type="text/javascript" src="<?php echo ROOT; ?>/assets/js/jquery.min.js"></script>
-    <script type="text/javascript" src="<?php echo ROOT; ?>/assets/js/bootstrap.min.js"></script>
   </body>
 </html>

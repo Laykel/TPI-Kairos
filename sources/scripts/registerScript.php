@@ -1,4 +1,11 @@
 <?php
+//--------------------------
+//Filename: registerScript.php
+//Creation date: 09.05.2017
+//Author: Luc Wachter
+//Function: The script part of the register page
+//Last modification: 09.05.2017
+//--------------------------
 
 $title = "Kairos - Inscription";
 
@@ -9,34 +16,27 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	//Extract the variables from $_POST
 	extract($post);
 
-	//-----------------------------------------------------------
-	//Should be in a function
-	//Check pseudo availability
-	$pseudoReq = "SELECT user_pseudo FROM user
-				  WHERE user_pseudo = '".$fPseudo."'";
-	$pseudoRes = dbRequest($pseudoReq, "select");
-	$line = $pseudoRes->fetch();
+	$pseudoAvailable = checkAvailable($fPseudo, 'user_pseudo');
+	$mailAvailable = checkAvailable($fEmail, 'user_mail');
 
-	//Check email availability
-	$emailReq = "SELECT user_mail FROM user
-				 WHERE user_mail = '".$fEmail."'";
-	$emailRes = dbRequest($pseudoReq, "select");
-	$eLine = $emailRes->fetch();
-	//-----------------------------------------------------------
+	//-------- Data validation --------//
+	$qstring = '';
 
 	if($fPseudo == '' || $fEmail == '' || $fPassword == '' || $fPassword2 == ''){
-		header('location:'.URL.'/?page=register&info=errorEmpty');
+		$qstring .= "&errorEmpty";
 	}
-	elseif($fPassword != $fPassword2){
-		header('location:'.URL.'/?page=register&info=errorPswd');
+	if($fPassword != $fPassword2){
+		$qstring .= "&errorPswd";
 	}
-	elseif($line['pseudo'] == $fPseudo){
-		header('location:'.URL.'/?page=register&info=existingPseudo');
+	if($pseudoAvailable){
+		$qstring .= "&existingPseudo";
 	}
-	elseif($eLine['user_mail'] == $fEmail){
-		header('location:'.URL.'/?page=register&info=existingEmail');
+	if($mailAvailable){
+		$qstring .= "&existingEmail";
 	}
-	else{
+	//-------- End of data validation --------//
+
+	if($qstring == ''){
 		$hashedPassword = password_hash($fPassword, PASSWORD_DEFAULT);
 
 		$registerReq = "INSERT INTO user (user_pseudo, user_mail, user_password, user_isAdmin)
@@ -44,6 +44,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         dbRequest($registerReq, "insert");
 
     	header('location:'.URL.'?page=login&info=success');
+    }
+    else{
+    	header('location:'.URL.'/?page=register'.$qstring);
     }
 }
 ?>

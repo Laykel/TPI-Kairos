@@ -4,29 +4,9 @@
 <div class="row">
 	<div class="col-sm-6 col-sm-offset-3">
 
-		<!-- Messages d'alerte PEUT-ETRE RENDRE CA COMMUN -->
-		<?php if(isset($_GET['info'])){ ?>
-
-			<?php if($_GET['info'] == 'success'){ ?>				
-				<div class="alert alert-dismissible alert-success">
-					<button type="button" class="close" data-dismiss="alert">&times;</button>
-					<strong>Succès!</strong> Votre inscription a réussi.
-				</div>
-			<?php }
-			elseif ($_GET['info'] == 'errorEmpty') { ?>
-				<div class="alert alert-dismissible alert-warning">
-					<button type="button" class="close" data-dismiss="alert">&times;</button>
-					<strong>Attention!</strong> Veuillez remplir tous les champs.
-				</div>
-			<?php }
-			elseif ($_GET['info'] == 'errorCo') { ?>
-				<div class="alert alert-dismissible alert-warning">
-					<button type="button" class="close" data-dismiss="alert">&times;</button>
-					<strong>Attention!</strong> Pseudonyme et/ou mot de passe incorrect(s).
-				</div>
-			<?php } ?>
-		<?php } ?>
-		<!-- Fin des messages d'alerte -->
+	    <!-- Messages d'alerte -->
+	    <?php include(ROOT."/sources/shared/alerts.php"); ?>
+	    <!-- Fin des messages d'alerte -->
 
 		<div class="panel panel-default">
 			<div class="panel-heading">
