@@ -11,6 +11,7 @@ session_start();
 define('ROOT', dirname('index.php'));
 //Definition of the path to the site's index
 define('URL', "http://kairos");
+//define('URL', "http://lwachter.mycpnv.ch/kairos");
 
 //Definition of the current page using the querystring
 $page = 'home';
@@ -87,7 +88,15 @@ if(file_exists($script)){
 
 	<!-- Inclusion de la page -->
 	<div class="container">
-	  <?php include(ROOT."/sources/pages/".$page.".php");?>
+	  <?php
+	  	$pagePath = ROOT."/sources/pages/".$page.".php";
+	  	if(file_exists($pagePath)){
+	  		include($pagePath);
+		}
+		else{
+			include(ROOT."/sources/pages/unknown.php");
+		}
+	  ?>
 	</div>
 	<!-- Fin de la page -->
 

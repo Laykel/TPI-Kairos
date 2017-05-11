@@ -9,3 +9,7 @@
 .label{
 	margin-top: 9px;
 }
+
+.panel-closed{
+	background-color: #d9d9d9;
+}
