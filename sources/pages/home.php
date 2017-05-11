@@ -51,7 +51,7 @@
 					</div>
 					<div class="form-group">
 						<label for="dateCreation">Date de création</label>
-						<input type="date" class="form-control" id="dateCreation" name="fDateCreation">
+						<input type="date" class="form-control" id="dateCreation" name="fDateCreation" disabled="">
 					</div>
 					<div class="form-group">
 						<label for="dateStart">Date de début prévue</label>

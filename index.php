@@ -94,7 +94,7 @@ if(file_exists($script)){
 	  		include($pagePath);
 		}
 		else{
-			include(ROOT."/sources/pages/unknown.php");
+			header("location:".URL."?page=unknown");
 		}
 	  ?>
 	</div>

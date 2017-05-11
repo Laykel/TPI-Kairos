@@ -22,6 +22,7 @@
 			      	<td><?php echo $line['user_pseudo'];?></td>
 			      	<td><?php echo $line['user_mail'];?></td>
 			      	<td><?php echo $line['user_isAdmin'];?></td>
+			      	<td><button class="btn btn-warning btn-xs">Modifier</button></td>
 			      </tr>
 		      <?php } ?>
 		      </tbody>

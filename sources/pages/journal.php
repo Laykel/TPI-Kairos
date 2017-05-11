@@ -1,15 +1,5 @@
 <div class="row">
 	<div class="col-sm-7">
-
-	  <!-- Messages d'alerte -->
-	  <?php include(ROOT."/sources/shared/alerts.php"); ?>
-	  <!-- Fin des messages d'alerte -->
-
-	  <button type="submit" class="btn btn-primary">
-	  	<span class="glyphicon glyphicon-plus"></span> Nouveau projet
-	  </button>
-	  <br><br>
-
 	  <?php foreach($projectTab as $project){ ?>
 		  <div class="panel panel-primary panel-closed">
 		    <div class="panel-heading">
