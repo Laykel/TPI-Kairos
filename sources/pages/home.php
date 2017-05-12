@@ -19,7 +19,7 @@
 		      <?php foreach($project['task'] as $task){ ?>
 			      <div class="container">
 			      	<div class="col-sm-5">
-			      		<input type="checkbox" name="yo"><?php echo $task['task_title']; ?>
+			      		<input type="checkbox" name="isClosed"><?php echo $task['task_title']; ?>
 			      	</div>
 			      	<div class="col-sm-2">
 			      		<?php	echo $task['task_timePassed']; ?>

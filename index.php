@@ -66,9 +66,9 @@ if(file_exists($script)){
 		<?php if(isset($_SESSION['isConnected'])){ ?>
           <div class="collapse navbar-collapse" id="navbar">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="<?php echo URL; ?>?page=home">Projets<span class="sr-only">(current)</span></a></li>
+              <li><a href="<?php echo URL; ?>?page=home">Projets<span class="sr-only">(current)</span></a></li>
               <li><a href="<?php echo URL; ?>?page=journal">Journal</a></li>
-              <?php if($_SESSION['isAdmin']){ ?> <li><a href="<?php echo URL; ?>?page=admin">Administration</a></li> <?php } ?>
+              <?php if($_SESSION['isAdmin']){ ?> <li class="active"><a href="<?php echo URL; ?>?page=admin">Administration</a></li> <?php } ?>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
