@@ -46,8 +46,9 @@ if(file_exists($script)){
     <link href="<?php echo ROOT;?>/assets/css/kairos-style.css" rel="stylesheet" type="text/css"/>
 
     <!-- JavaScript libraries -->
-    <script type="text/javascript" src="<?php echo ROOT; ?>/assets/js/jquery.min.js"></script>
-    <script type="text/javascript" src="<?php echo ROOT; ?>/assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="<?php echo ROOT; ?>/assets/js/jquery.min.js" defer></script>
+    <script type="text/javascript" src="<?php echo ROOT; ?>/assets/js/bootstrap.min.js" defer></script>
+    <script type="text/javascript" src="<?php echo ROOT; ?>/assets/js/displayDetails.js" defer></script>
   </head>
   <body>
 	<!-- Navigation -->
@@ -66,13 +67,13 @@ if(file_exists($script)){
 		<?php if(isset($_SESSION['isConnected'])){ ?>
           <div class="collapse navbar-collapse" id="navbar">
             <ul class="nav navbar-nav">
-              <li><a href="<?php echo URL; ?>?page=home">Projets<span class="sr-only">(current)</span></a></li>
-              <li><a href="<?php echo URL; ?>?page=journal">Journal</a></li>
-              <?php if($_SESSION['isAdmin']){ ?> <li class="active"><a href="<?php echo URL; ?>?page=admin">Administration</a></li> <?php } ?>
+              <li <?php if($page=='home') echo 'class="active"'; ?>><a href="<?php echo URL; ?>?page=home">Projets<span class="sr-only">(current)</span></a></li>
+              <li <?php if($page=='journal') echo 'class="active"'; ?>><a href="<?php echo URL; ?>?page=journal">Journal</a></li>
+              <?php if($_SESSION['isAdmin']){ ?> <li <?php if($page=='admin') echo 'class="active"'; ?>><a href="<?php echo URL; ?>?page=admin">Administration</a></li> <?php } ?>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-              <li class="dropdown">
+              <li class="dropdown <?php if($page=='profile') echo 'active'; ?>">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> <?php echo $_SESSION['pseudo'];?> <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
                   <li><a href="<?php echo URL; ?>?page=profile">Modifier profil</a></li>

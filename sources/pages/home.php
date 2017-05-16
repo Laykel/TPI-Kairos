@@ -1,6 +1,5 @@
 <div class="row">
 	<div class="col-sm-7">
-
 	  <!-- Messages d'alerte -->
 	  <?php include(ROOT."/sources/shared/alerts.php"); ?>
 	  <!-- Fin des messages d'alerte -->
@@ -13,16 +12,19 @@
 	  <?php foreach($projectTab as $project){ ?>
 		  <div class="panel panel-primary">
 		    <div class="panel-heading">
-		      <h3 class="panel-title project-title"><?php echo $project['project_title'];?></h3>
+		      <h3 class="panel-title project-title" id="<?php echo $project['project_id'];?>">
+		      	<?php echo $project['project_title'];?>
+		      </h3>
 		    </div>
 		    <div class="panel-body">
 		      <?php foreach($project['task'] as $task){ ?>
 			      <div class="container">
-			      	<div class="col-sm-5">
-			      		<input type="checkbox" name="isClosed"><?php echo " ".$task['task_title']; ?>
+			      	<div class="col-sm-5 task-title" id="<?php echo ' '.$task['task_id']; ?>">
+			      		<input type="checkbox">
+			      		<?php echo " ".$task['task_title']; ?>
 			      	</div>
 			      	<div class="col-sm-2">
-			      		<?php	echo $task['task_timePassed']; ?>
+			      		<?php echo $task['task_timePassed']; ?>
 			      	</div>
 			      </div>
 		      <?php } ?>
@@ -35,12 +37,8 @@
 	</div>
 
 	<div class="col-sm-5">
-	  <div class="panel panel-info">
+	  <div class="panel panel-info" id="panel-details">
 	    
 	  </div>
 	</div>
 </div>
-
-<script type="text/javascript">
-	$('.project-title').on('click', )
-</script>

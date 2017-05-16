@@ -3,16 +3,19 @@
 	  <?php foreach($projectTab as $project){ ?>
 		  <div class="panel panel-primary panel-closed">
 		    <div class="panel-heading">
-		      <h3 class="panel-title"><?php echo $project['project_title'];?></h3>
+		      <h3 class="panel-title project-title" id="<?php echo $project['project_id'];?>">
+		      	<?php echo $project['project_title'];?>
+		   	  </h3>
 		    </div>
 		    <div class="panel-body">
 		      <?php foreach($project['task'] as $task){ ?>
 			      <div class="container">
-			      	<div class="col-sm-5">
-			      		<input type="checkbox" name="yo"> <?php	echo $task['task_title']; ?>
+			      	<div class="col-sm-5 task-title" id="<?php echo ' '.$task['task_id']; ?>">
+			      		<input type="checkbox" disabled="">
+			      		<?php echo " ".$task['task_title']; ?>
 			      	</div>
 			      	<div class="col-sm-2">
-			      		<?php	echo $task['task_timePassed']; ?>
+			      		<?php echo $task['task_timePassed']; ?>
 			      	</div>
 			      </div>
 		      <?php } ?>
@@ -25,35 +28,8 @@
 	</div>
 
 	<div class="col-sm-5">
-	  <div class="panel panel-info panel-closed">
-	    <div class="panel-heading">
-	      <h3 class="panel-title">Détails du projet</h3>
-	    </div>
-	    <div class="panel-body">
-				<div class="form-group">
-					<label for="titre">Titre du projet</label>
-					<input type="text" class="form-control" id="titre" name="fTitre" maxlength="45" disabled="">
-				</div>
-				<div class="form-group">
-					<label for="desc">Description</label>
-					<textarea class="form-control" id="desc" rows="3" name="fDescription" maxlength="500" disabled=""></textarea>
-				</div>
-				<div class="form-group">
-					<label for="dateCreation">Date de création</label>
-					<input type="date" class="form-control" id="dateCreation" name="fDateCreation" disabled="">
-				</div>
-				<div class="form-group">
-					<label for="dateStart">Date de début prévue</label>
-					<input type="date" class="form-control" id="dateStart" name="fDateStart" disabled="">
-				</div>
-				<div class="form-group">
-					<label for="dateEnd">Date de fin prévue</label>
-					<input type="date" class="form-control" id="dateEnd" name="fDateEnd" disabled="">
-				</div>
-	    </div>
-	    <div class="panel-footer">
-	    	<button type="submit" class="btn btn-default">Rouvrir le projet</button>
-	    </div>
+	  <div class="panel panel-info panel-closed" id="panel-details">
+	    
 	  </div>
 	</div>
 </div>

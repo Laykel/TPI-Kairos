@@ -13,3 +13,15 @@
 .panel-closed{
 	background-color: #d9d9d9;
 }
+
+.task-title{
+	cursor:pointer;
+}
+
+.project-title{
+	cursor:pointer;
+}
+
+textarea{
+	resize: none;
+}
