@@ -1,16 +1,16 @@
 <?php 
 include("functions.php");
+include("detailsChange.php");
 
-//Projects
-$projectReq = "SELECT project_title, project_description, project_dateCreation, project_plannedBeginning, project_plannedEnd, project_dateClosed, project_isClosed
+//Get all project data
+$projectReq = "SELECT project_id, project_title, project_description, project_dateCreation, project_plannedBeginning, project_plannedEnd, project_dateClosed, project_isClosed
 			   FROM project WHERE project_id=".$_GET['id'];
 $projectRes = dbRequest($projectReq, "select");
 $line = $projectRes->fetch();
-
 ?>
 
 <div class="panel-heading">
-  <h3 class="panel-title">Détails du projet</h3>
+	<h3 class="panel-title">Détails du projet</h3>
 </div>
 <div class="panel-body">
 	<form method="post" action="">
@@ -41,15 +41,37 @@ $line = $projectRes->fetch();
 		<?php if(!$line['project_isClosed']){ ?>
 			<button type="submit" class="btn btn-info pull-right">Soumettre</button>
 		<?php } ?>
-	</form>
+	</form> 
 </div>
-<div class="panel-footer">
+<div class="panel-footer" id="<?php echo $line['project_id'];?>">
 	<?php if(!$line['project_isClosed']){ ?>
-		<button type="submit" class="btn btn-default">Fermer</button>
-		<button type="submit" class="btn btn-danger pull-right">
+		<button class="btn btn-default" id="close">Fermer</button>
+		<button class="btn btn-danger pull-right" id="remove">
 			<span class="glyphicon glyphicon-trash"></span>
 		</button>
 	<?php } else{ ?>
-		<button type="submit" class="btn btn-default">Rouvrir le projet</button>
+		<button class="btn btn-default" id="reopen">Rouvrir le projet</button>
 	<?php } ?>
 </div>
+
+<div id="confirm" class="modal hide fade">
+  <div class="modal-body">
+    Are you sure?
+  </div>
+  <div class="modal-footer">
+    <button type="button" data-dismiss="modal" class="btn btn-primary" id="delete">Delete</button>
+    <button type="button" data-dismiss="modal" class="btn">Cancel</button>
+  </div>
+</div>
+
+<script type="text/javascript">
+$('#close').on('click', function(){
+	$('#confirm').modal({
+      backdrop: 'static',
+      keyboard: false
+    })
+    .one('click', '#delete', function(e) {
+      alert("deleted");
+    });
+});
+</script>

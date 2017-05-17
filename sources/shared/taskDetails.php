@@ -1,16 +1,21 @@
 <?php 
 include("functions.php");
 
-//Tasks
-$taskReq = "SELECT project_title, task_title, task_description, task_timePassed, task_dateCreation, task_plannedBeginning, task_plannedEnd, task_dateClosed
+//Get all task data
+$taskReq = "SELECT project_title, project_isClosed, task_id, task_title, task_description, task_timePassed, task_dateCreation, task_plannedBeginning, task_plannedEnd, task_dateClosed
 			FROM task INNER JOIN project ON project_fk=project_id
 			WHERE task_id=".$_GET['id'];
 $taskRes = dbRequest($taskReq, "select");
 $line = $taskRes->fetch();
+
+//Get all comments data
+$commentReq = "SELECT comment_content, comment_date FROM comment
+			   WHERE task_fk=".$line['task_id'];
+$commentRes = dbRequest($commentReq, "select");
 ?>
 
 <div class="panel-heading">
-  <h3 class="panel-title">Détails de la tâche</h3>
+	<h3 class="panel-title">Détails de la tâche</h3>
 </div>
 <div class="panel-body">
 	<u><small>Appartient au projet: <?php echo $line['project_title'];?></small></u><br><br>
@@ -33,7 +38,7 @@ $line = $taskRes->fetch();
 		</div>
 		<div class="form-group">
 			<label for="timePassed">Temps passé sur la tâche</label>
-			<input type="date" class="form-control" id="timePassed" name="fTimePassed" value="<?php echo $line['task_timePassed'];?>">
+			<input type="time" class="form-control" id="timePassed" name="fTimePassed" value="<?php echo $line['task_timePassed'];?>">
 		</div>
 		<div class="form-group">
 			<label for="plannedEnd">Date de fin prévue</label>
@@ -43,11 +48,31 @@ $line = $taskRes->fetch();
 			<label for="dateEnd">Date de fermeture</label>
 			<input type="date" class="form-control" id="dateEnd" name="fDateEnd" disabled="" value="<?php echo $line['task_dateClosed'];?>">
 		</div>
-		<button type="submit" class="btn btn-info pull-right">Soumettre</button>
+		<?php if(!$line['project_isClosed']){ ?>
+			<div class="form-group">
+				<button type="submit" class="btn btn-info pull-right">Soumettre</button>
+			</div>
+		<?php } ?>
 	</form>
+	<table class="table table-striped">
+		<thead>
+			<th>Date</th>
+			<th>Commentaire</th>
+		</thead>
+		<tbody>
+			<?php while($commentLine = $commentRes->fetch()){ ?>
+				<tr>
+					<td><?php echo $commentLine['comment_date'];?></td>
+					<td><?php echo $commentLine['comment_content'];?></td>
+				</tr>
+			<?php } ?>
+		</tbody>
+	</table>
 </div>
 <div class="panel-footer">
-  <button type="submit" class="btn btn-danger">
-  	<span class="glyphicon glyphicon-trash"></span>
-  </button>
+	<?php if(!$line['project_isClosed']){ ?>
+	  <button class="btn btn-danger" id="<?php echo $line['task_id'];?>">
+	  	<span class="glyphicon glyphicon-trash"></span>
+	  </button>
+	<?php } ?>
 </div>

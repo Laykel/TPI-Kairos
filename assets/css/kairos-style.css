@@ -1,3 +1,7 @@
+body{
+	padding-top: 60px;
+}
+
 .navbar{
 	background: #2780E3;
 }
@@ -14,6 +18,10 @@
 	background-color: #d9d9d9;
 }
 
+.panel-closed table{
+	background-color: #d0d0d0;
+}
+
 .task-title{
 	cursor:pointer;
 }
@@ -25,3 +33,13 @@
 textarea{
 	resize: none;
 }
+
+.affix {
+    top:50px;
+    position:fixed;
+}
+
+/*.fixed {
+    top:80px;
+    position:fixed;
+}*/

@@ -8,18 +8,31 @@
 		   	  </h3>
 		    </div>
 		    <div class="panel-body">
-		      <?php foreach($project['task'] as $task){ ?>
-			      <div class="container">
-			      	<div class="col-sm-5 task-title" id="<?php echo ' '.$task['task_id']; ?>">
-			      		<input type="checkbox" disabled="">
-			      		<?php echo " ".$task['task_title']; ?>
-			      	</div>
-			      	<div class="col-sm-2">
-			      		<?php echo $task['task_timePassed']; ?>
-			      	</div>
-			      </div>
-		      <?php } ?>
-		    </div>
+				<table class="table">
+					<?php foreach($project['task'] as $task){ 
+							if(!$task['task_isClosed']){ ?>
+						<tr>
+							<td class="task-title" id="<?php echo $task['task_id']; ?>">
+								<input type="checkbox" disabled=""><?php echo " ".$task['task_title']; ?>
+							</td>
+							<td>
+								<?php echo $task['task_timePassed']; ?>
+							</td>
+						</tr>
+					<?php } } ?>
+					<?php foreach($project['task'] as $task){ 
+							if($task['task_isClosed']){ ?>
+						<tr>
+							<td class="task-title" id="<?php echo $task['task_id']; ?>">
+								<input type="checkbox" checked="" disabled=""><?php echo " ".$task['task_title']; ?>
+							</td>
+							<td>
+								<?php echo $task['task_timePassed']; ?>
+							</td>
+						</tr>
+					<?php } } ?>
+				</table>
+			</div>
 		    <div class="panel-footer">
 		      <p>Total du temps passé: ...</p>
 		    </div>

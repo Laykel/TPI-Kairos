@@ -43,6 +43,6 @@ if(isset($_GET['errorCo'])){ ?>
 if(isset($_GET['profileSuccess'])){ ?>
 	<div class="alert alert-dismissible alert-success">
 		<button type="button" class="close" data-dismiss="alert">&times;</button>
-		<strong>Attention!</strong> La modification du profil a réussi.
+		<strong>Succès!</strong> La modification du profil a réussi.
 	</div>
 <?php } ?>
