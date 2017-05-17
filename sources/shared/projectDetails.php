@@ -1,6 +1,7 @@
 <?php 
 include("functions.php");
 include("detailsChange.php");
+include("modal.html");
 
 //Get all project data
 $projectReq = "SELECT project_id, project_title, project_description, project_dateCreation, project_plannedBeginning, project_plannedEnd, project_dateClosed, project_isClosed
@@ -43,35 +44,14 @@ $line = $projectRes->fetch();
 		<?php } ?>
 	</form> 
 </div>
+<!-- Footer: Boutons de fermeture et de suppression -->
 <div class="panel-footer" id="<?php echo $line['project_id'];?>">
 	<?php if(!$line['project_isClosed']){ ?>
 		<button class="btn btn-default" id="close">Fermer</button>
-		<button class="btn btn-danger pull-right" id="remove">
+		<button class="btn btn-danger pull-right" id="remove-project">
 			<span class="glyphicon glyphicon-trash"></span>
 		</button>
 	<?php } else{ ?>
 		<button class="btn btn-default" id="reopen">Rouvrir le projet</button>
 	<?php } ?>
 </div>
-
-<div id="confirm" class="modal hide fade">
-  <div class="modal-body">
-    Are you sure?
-  </div>
-  <div class="modal-footer">
-    <button type="button" data-dismiss="modal" class="btn btn-primary" id="delete">Delete</button>
-    <button type="button" data-dismiss="modal" class="btn">Cancel</button>
-  </div>
-</div>
-
-<script type="text/javascript">
-$('#close').on('click', function(){
-	$('#confirm').modal({
-      backdrop: 'static',
-      keyboard: false
-    })
-    .one('click', '#delete', function(e) {
-      alert("deleted");
-    });
-});
-</script>

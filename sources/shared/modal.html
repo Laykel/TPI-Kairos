@@ -1,0 +1,72 @@
+<div class="modal fade" id="confirm">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Suppression d'objet</h4>
+      </div>
+      <div class="modal-body">
+        <p>Etes vous sûr de vouloir supprimer le projet ou la tâche sélectionné(e)?</p>
+        <p>Cette action est définitive.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-default" data-dismiss="modal">Annuler</button>
+        <button class="btn btn-primary" data-dismiss="modal" id="yes">Supprimer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+$('#close').on('click', function(e){
+  var projectId = $(this).closest("div").prop('id');
+  
+  $.ajax({
+    url: 'sources/shared/update.php',
+    type: 'post',
+    data: {"close": projectId}
+  });
+});
+
+$('#reopen').on('click', function(e){
+  var projectId = $(this).closest("div").prop('id');
+
+  $.ajax({
+    url: 'sources/shared/update.php',
+    type: 'post',
+    data: {"reopen": projectId}
+  });
+});
+
+$('#remove-project').on('click', function(e){
+  var projectId = $(this).closest("div").prop('id');
+
+  $('#confirm').modal({
+      backdrop: 'static',
+      keyboard: false
+    })
+    .one('click', '#yes', function(e){
+      $.ajax({
+        url: 'sources/shared/update.php',
+        type: 'post',
+        data: {"remove-project": projectId}
+      });
+    });
+});
+
+$('#remove-task').on('click', function(e){
+  var projectId = $(this).closest("div").prop('id');
+
+  $('#confirm').modal({
+      backdrop: 'static',
+      keyboard: false
+    })
+    .one('click', '#yes', function(e) {
+      $.ajax({
+        url: 'sources/shared/update.php',
+        type: 'post',
+        data: {"remove-task": projectId}
+      });
+    });
+});
+</script>

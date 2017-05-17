@@ -1,5 +1,7 @@
 <?php 
 include("functions.php");
+include("detailsChange.php");
+include("modal.html");
 
 //Get all task data
 $taskReq = "SELECT project_title, project_isClosed, task_id, task_title, task_description, task_timePassed, task_dateCreation, task_plannedBeginning, task_plannedEnd, task_dateClosed
@@ -69,9 +71,9 @@ $commentRes = dbRequest($commentReq, "select");
 		</tbody>
 	</table>
 </div>
-<div class="panel-footer">
+<div class="panel-footer" id="<?php echo $line['task_id'];?>">
 	<?php if(!$line['project_isClosed']){ ?>
-	  <button class="btn btn-danger" id="<?php echo $line['task_id'];?>">
+	  <button class="btn btn-danger" id="remove-task">
 	  	<span class="glyphicon glyphicon-trash"></span>
 	  </button>
 	<?php } ?>
