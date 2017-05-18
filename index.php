@@ -11,7 +11,7 @@ session_start();
 define('ROOT', dirname('index.php'));
 //Definition of the path to the site's index
 define('URL', "http://kairos");
-//define('URL', "http://lwachter.mycpnv.ch/kairos");
+//define('URL', "http://lwachter.mycpnv.ch");
 
 //Definition of the current page using the querystring
 $page = 'home';
@@ -46,12 +46,12 @@ if(file_exists($script)){
     <link href="<?php echo ROOT;?>/assets/css/kairos-style.css" rel="stylesheet" type="text/css"/>
 
     <!-- JavaScript libraries -->
-    <script type="text/javascript" src="<?php echo ROOT; ?>/assets/js/jquery.min.js" defer></script>
-    <script type="text/javascript" src="<?php echo ROOT; ?>/assets/js/bootstrap.min.js" defer></script>
-    <script type="text/javascript" src="<?php echo ROOT; ?>/assets/js/displayDetails.js" defer></script>
+    <script type="text/javascript" src="<?php echo ROOT;?>/assets/js/jquery.min.js"></script>
+    <script type="text/javascript" src="<?php echo ROOT;?>/assets/js/bootstrap.min.js" defer></script>
+    <script type="text/javascript" src="<?php echo ROOT;?>/assets/js/displayDetails.js" defer></script>
   </head>
   <body>
-	<!-- Navigation -->
+	  <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -64,11 +64,11 @@ if(file_exists($script)){
           <a class="navbar-brand" href="<?php echo URL;?>">KairosProjects</a>
         </div>
 
-		<?php if(isset($_SESSION['isConnected'])){ ?>
+		    <?php if(isset($_SESSION['isConnected'])){ ?>
           <div class="collapse navbar-collapse" id="navbar">
             <ul class="nav navbar-nav">
-              <li <?php if($page=='home') echo 'class="active"'; ?>><a href="<?php echo URL; ?>?page=home">Projets<span class="sr-only">(current)</span></a></li>
-              <li <?php if($page=='journal') echo 'class="active"'; ?>><a href="<?php echo URL; ?>?page=journal">Journal</a></li>
+              <li <?php if($page=='home') echo 'class="active"';?>><a href="<?php echo URL; ?>?page=home">Projets<span class="sr-only">(current)</span></a></li>
+              <li <?php if($page=='journal') echo 'class="active"';?>><a href="<?php echo URL; ?>?page=journal">Journal</a></li>
               <?php if($_SESSION['isAdmin']){ ?> <li <?php if($page=='admin') echo 'class="active"'; ?>><a href="<?php echo URL; ?>?page=admin">Administration</a></li> <?php } ?>
             </ul>
 

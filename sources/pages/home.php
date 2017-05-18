@@ -4,7 +4,7 @@
 		<?php include(ROOT."/sources/shared/alerts.php"); ?>
 		<!-- Fin des messages d'alerte -->
 
-		<button type="submit" class="btn btn-primary">
+		<button class="btn btn-primary" id="addProject">
 			<span class="glyphicon glyphicon-plus"></span> Nouveau projet
 		</button>
 		<br><br>
@@ -14,7 +14,7 @@
 				<div class="panel-heading project-title" id="<?php echo $project['project_id'];?>">
 					<h3 class="panel-title">
 						<?php echo $project['project_title'];?>
-						<!--<small class="pull-right">Fin prévue: <?php //echo $project['project_plannedEnd'];?></small>-->
+						<span class="glyphicon glyphicon-info-sign pull-right"></span>
 					</h3>
 				</div>
 				<div class="panel-body">
@@ -26,14 +26,26 @@
 									<input type="checkbox"><?php echo " ".$task['task_title']; ?>
 								</td>
 								<td>
-									<span class="glyphicon glyphicon-play"></span>
-									<span class="glyphicon glyphicon-pause"></span>
+									<button class="btn btn-primary btn-xs">
+										<span class="glyphicon glyphicon-play"></span>
+									</button>
+									<!--<span class="glyphicon glyphicon-pause"></span>-->
 								</td>
 								<td>
 									<?php echo $task['task_timePassed']; ?>
 								</td>
 							</tr>
 						<?php } } ?>
+						<form name="<?php echo $project['project_id'];?>" class="newTask">
+							<tr>
+								<td colspan="2">
+									<input type="text" class="form-control taskInput" placeholder="Nouvelle tâche">
+								</td>
+								<td>
+									<button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></button>
+								</td>
+							</tr>
+						</form>
 						<?php foreach($project['task'] as $task){ 
 								if($task['task_isClosed']){ ?>
 							<tr>
@@ -61,3 +73,21 @@
 		</div>
 	</div>
 </div>
+
+<script type="text/javascript">
+$('.newTask').on('submit', function(e){
+	e.preventDefault();
+	var projectId = $(this).prop('name');
+	var title = $(this).closest('input.taskInput').val();
+	
+	var request = $.ajax({
+	  url: 'sources/shared/update.php',
+	  type: 'post',
+	  data: {"add-task": projectId, "title": title}
+	});
+
+	request.done(function(){
+	  window.location.reload();
+	});
+});
+</script>

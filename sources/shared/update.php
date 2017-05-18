@@ -1,5 +1,17 @@
 <?php 
 include("functions.php");
+date_default_timezone_set('Europe/Zurich');
+
+if(isset($_POST['add-task'])){
+	//Calculate current datetime
+	$dateObject = new DateTime();
+	$datetime = date_format($dateObject, "Y-m-d H:i:s");
+
+	//New task request
+	$createReq = "INSERT INTO task(task_title, task_dateCreation, task_timePassed, task_isClosed, project_fk)
+				VALUES('".$_POST['title']."', '".$datetime."', '00:00:00.0', 0, ".$_POST['add-task'].")";
+	dbRequest($createReq, "insert");
+}
 
 if(isset($_POST['close'])){
 	//Close project request
@@ -39,6 +51,5 @@ if(isset($_POST['remove-account'])){
 	$removeReq = "DELETE FROM user
 				  WHERE user_id=".$_POST['remove-account'];
 	dbRequest($removeReq, "delete");
-	header('location:');
 }
 ?>

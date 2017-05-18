@@ -32,11 +32,11 @@ $commentRes = dbRequest($commentReq, "select");
 		</div>
 		<div class="form-group">
 			<label for="dateCreation">Date de création</label>
-			<input type="date" class="form-control" id="dateCreation" name="fDateCreation" disabled="" value="<?php echo $line['task_dateCreation'];?>">
+			<input type="datetime" class="form-control" id="dateCreation" name="fDateCreation" disabled="" value="<?php echo $line['task_dateCreation'];?>">
 		</div>
 		<div class="form-group">
 			<label for="dateStart">Date de début prévue</label>
-			<input type="date" class="form-control" id="dateStart" name="fDateStart" value="<?php echo $line['task_plannedBeginning'];?>">
+			<input type="datetime" class="form-control" id="dateStart" name="fDateStart" value="<?php echo $line['task_plannedBeginning'];?>">
 		</div>
 		<div class="form-group">
 			<label for="timePassed">Temps passé sur la tâche</label>
@@ -44,11 +44,11 @@ $commentRes = dbRequest($commentReq, "select");
 		</div>
 		<div class="form-group">
 			<label for="plannedEnd">Date de fin prévue</label>
-			<input type="text" class="form-control" id="plannedEnd" name="fPlannedEnd" value="<?php echo $line['task_plannedEnd'];?>">
+			<input type="datetime" class="form-control" id="plannedEnd" name="fPlannedEnd" value="<?php echo $line['task_plannedEnd'];?>">
 		</div>
 		<div class="form-group">
 			<label for="dateEnd">Date de fermeture</label>
-			<input type="date" class="form-control" id="dateEnd" name="fDateEnd" disabled="" value="<?php echo $line['task_dateClosed'];?>">
+			<input type="datetime" class="form-control" id="dateEnd" name="fDateEnd" disabled="" value="<?php echo $line['task_dateClosed'];?>">
 		</div>
 		<?php if(!$line['project_isClosed']){ ?>
 			<div class="form-group">

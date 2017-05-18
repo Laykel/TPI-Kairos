@@ -2,8 +2,7 @@
   <div class="col-sm-7">
 
     <!-- Messages d'alerte -->
-    <?php include(ROOT."/sources/shared/alerts.php"); 
-          include(ROOT."/sources/shared/modal.html");?>
+    <?php include(ROOT."/sources/shared/alerts.php");?>
     <!-- Fin des messages d'alerte -->
 
     <div class="panel panel-primary">
@@ -50,3 +49,6 @@
     </div>
   </div>
 </div>
+
+<!-- Message de confirmation -->
+<?php include(ROOT."/sources/shared/modal.html");?>
