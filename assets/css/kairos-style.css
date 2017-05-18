@@ -18,10 +18,6 @@ body{
 	background-color: #d9d9d9;
 }
 
-.panel-closed table{
-	background-color: #d0d0d0;
-}
-
 .task-title{
 	cursor:pointer;
 }

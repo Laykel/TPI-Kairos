@@ -2,8 +2,8 @@
 	<div class="col-sm-7">
 	  <?php foreach($projectTab as $project){ ?>
 		  <div class="panel panel-primary panel-closed">
-		    <div class="panel-heading">
-		      <h3 class="panel-title project-title" id="<?php echo $project['project_id'];?>">
+		    <div class="panel-heading project-title" id="<?php echo $project['project_id'];?>">
+		      <h3 class="panel-title">
 		      	<?php echo $project['project_title'];?>
 		   	  </h3>
 		    </div>

@@ -2,7 +2,8 @@
   <div class="col-sm-7">
 
     <!-- Messages d'alerte -->
-    <?php include(ROOT."/sources/shared/alerts.php"); ?>
+    <?php include(ROOT."/sources/shared/alerts.php"); 
+          include(ROOT."/sources/shared/modal.html");?>
     <!-- Fin des messages d'alerte -->
 
     <div class="panel panel-primary">
@@ -43,11 +44,8 @@
   	  <label for="pseudo">Votre adresse mail:</label>
   	  <p id="pseudo"> <?php echo $line['user_mail']; ?> </p>
       </div>
-      <div class="panel-footer">
-        <form method="post" action="">
-          <input type="hidden" name="fDeleteAccount">
-          <button type="submit" class="btn btn-danger">Supprimer votre compte</button>
-        </form>
+      <div class="panel-footer" id="<?php echo $line['user_id'];?>">
+        <button class="btn btn-danger" id="remove-account">Supprimer votre compte</button>
       </div>
     </div>
   </div>

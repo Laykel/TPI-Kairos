@@ -17,9 +17,5 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	$post = secureArray($_POST);
 	//Extract the variables from $_POST
 	extract($post);
-
-	$taskReq = "UPDATE project SET project_isClosed=0
-				WHERE project_id = !!!!!!!!!!!!!!!!!!";
-	$taskRes = dbRequest($taskReq, "select");
 }
 ?>

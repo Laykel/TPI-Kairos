@@ -11,8 +11,8 @@
 
 		<?php foreach($projectTab as $project){ ?>
 			<div class="panel panel-primary">
-				<div class="panel-heading">
-					<h3 class="panel-title project-title" id="<?php echo $project['project_id'];?>">
+				<div class="panel-heading project-title" id="<?php echo $project['project_id'];?>">
+					<h3 class="panel-title">
 						<?php echo $project['project_title'];?>
 						<!--<small class="pull-right">Fin prévue: <?php //echo $project['project_plannedEnd'];?></small>-->
 					</h3>

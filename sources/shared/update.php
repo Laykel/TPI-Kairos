@@ -34,11 +34,11 @@ if(isset($_POST['remove-task'])){
 	dbRequest($removeReq, "delete");
 }
 
-if(isset($_POST['remove-user'])){
+if(isset($_POST['remove-account'])){
 	//Remove user request
 	$removeReq = "DELETE FROM user
-				  WHERE user_id=".$_POST['remove-user'];
+				  WHERE user_id=".$_POST['remove-account'];
 	dbRequest($removeReq, "delete");
+	header('location:');
 }
-
 ?>

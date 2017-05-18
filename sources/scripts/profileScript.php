@@ -9,7 +9,7 @@
 $title = "Kairos - Profil";
 
 //Retrieve user data
-$userReq = "SELECT user_pseudo, user_mail FROM user
+$userReq = "SELECT user_id, user_pseudo, user_mail FROM user
 			WHERE user_id='".$_SESSION['user_id']."'";
 $userRes = dbRequest($userReq, "select");
 $line = $userRes->fetch();

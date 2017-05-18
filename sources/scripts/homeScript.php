@@ -16,7 +16,5 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	$post = secureArray($_POST);
 	//Extract the variables from $_POST
 	extract($post);
-
-	
 }
 ?>
