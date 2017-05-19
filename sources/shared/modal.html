@@ -19,94 +19,97 @@
 </div>
 
 <script type="text/javascript">
-$('#close').on('click', function(e){
-  var projectId = $(this).closest("div").prop('id');
+$( document ).ready(function(){
 
-  var request = $.ajax({
-    url: 'sources/shared/update.php',
-    type: 'post',
-    data: {"close": projectId}
+  $('#close').on('click', function(e){
+    var projectId = $(this).closest("div").prop('id');
+
+    var request = $.ajax({
+      url: 'sources/shared/update.php',
+      type: 'post',
+      data: {"close": projectId}
+    });
+
+    request.done(function(){
+      window.location.reload();
+    });
   });
 
-  request.done(function(){
-    window.location.reload();
+  $('#reopen').on('click', function(e){
+    var projectId = $(this).closest("div").prop('id');
+
+    var request = $.ajax({
+      url: 'sources/shared/update.php',
+      type: 'post',
+      data: {"reopen": projectId}
+    })
+
+    request.done(function(){
+      window.location.reload();
+    });
   });
-});
 
-$('#reopen').on('click', function(e){
-  var projectId = $(this).closest("div").prop('id');
+  $('#remove-project').on('click', function(e){
+    var projectId = $(this).closest("div").prop('id');
+    $("#account").hide();
 
-  var request = $.ajax({
-    url: 'sources/shared/update.php',
-    type: 'post',
-    data: {"reopen": projectId}
-  })
+    $('#confirm').modal({
+        backdrop: 'static',
+        keyboard: false
+    })
+      .one('click', '#yes', function(e){
+        var request = $.ajax({
+          url: 'sources/shared/update.php',
+          type: 'post',
+          data: {"remove-project": projectId}
+        });
 
-  request.done(function(){
-    window.location.reload();
+        request.done(function(){
+          window.location.reload();
+        });
+      });
   });
-});
 
-$('#remove-project').on('click', function(e){
-  var projectId = $(this).closest("div").prop('id');
-  $("#account").hide();
+  $('#remove-task').on('click', function(e){
+    var projectId = $(this).closest("div").prop('id');
+    $("#account").hide();
 
-  $('#confirm').modal({
-      backdrop: 'static',
-      keyboard: false
-  })
-    .one('click', '#yes', function(e){
-      var request = $.ajax({
-        url: 'sources/shared/update.php',
-        type: 'post',
-        data: {"remove-project": projectId}
+    $('#confirm').modal({
+        backdrop: 'static',
+        keyboard: false
+    })
+      .one('click', '#yes', function(e){
+        var request = $.ajax({
+          url: 'sources/shared/update.php',
+          type: 'post',
+          data: {"remove-task": projectId}
+        });
+
+        request.done(function(){
+          window.location.reload();
+        });
       });
+  });
 
-      request.done(function(){
-        window.location.reload();
+  $('#remove-account').on('click', function(e){
+    var accountId = $(this).closest("div").prop('id');
+    $("#projectOrTask").hide();
+
+    $('#confirm').modal({
+        backdrop: 'static',
+        keyboard: false
+    })
+      .one('click', '#yes', function(e){
+        var request = $.ajax({
+          url: 'sources/shared/update.php',
+          type: 'post',
+          data: {"remove-account": accountId}
+        });
+
+        request.done(function(){
+          window.location = "?page=logout";
+        });
       });
-    });
-});
-
-$('#remove-task').on('click', function(e){
-  var projectId = $(this).closest("div").prop('id');
-  $("#account").hide();
-
-  $('#confirm').modal({
-      backdrop: 'static',
-      keyboard: false
-  })
-    .one('click', '#yes', function(e){
-      var request = $.ajax({
-        url: 'sources/shared/update.php',
-        type: 'post',
-        data: {"remove-task": projectId}
-      });
-
-      request.done(function(){
-        window.location.reload();
-      });
-    });
-});
-
-$('#remove-account').on('click', function(e){
-  var accountId = $(this).closest("div").prop('id');
-  $("#projectOrTask").hide();
-
-  $('#confirm').modal({
-      backdrop: 'static',
-      keyboard: false
-  })
-    .one('click', '#yes', function(e){
-      var request = $.ajax({
-        url: 'sources/shared/update.php',
-        type: 'post',
-        data: {"remove-account": accountId}
-      });
-
-      request.done(function(){
-        window.location = "?page=logout";
-      });
-    });
+  });
 });
 </script>

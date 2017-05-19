@@ -4,10 +4,23 @@
 		<?php include(ROOT."/sources/shared/alerts.php"); ?>
 		<!-- Fin des messages d'alerte -->
 
-		<button class="btn btn-primary" id="addProject">
-			<span class="glyphicon glyphicon-plus"></span> Nouveau projet
-		</button>
-		<br><br>
+		<form id="newProject">
+			<table class="table table-borderless">
+				<tr>
+					<td>
+						<button type="button" class="btn btn-primary" id="addProject">
+							<span class="glyphicon glyphicon-plus"></span> Nouveau projet
+						</button>
+					</td>
+					<td id="projectInput" hidden>
+						<input type="text" class="form-control" id="projectTitle" placeholder="Nouveau projet">
+					</td>
+					<td id="projectButton" hidden>
+						<button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></button>
+					</td>
+				</tr>
+			</table>
+		</form>
 
 		<?php foreach($projectTab as $project){ ?>
 			<div class="panel panel-primary">
@@ -36,10 +49,10 @@
 								</td>
 							</tr>
 						<?php } } ?>
-						<form name="<?php echo $project['project_id'];?>" class="newTask">
+						<form class="newTask" name="<?php echo $project['project_id'];?>">
 							<tr>
 								<td colspan="2">
-									<input type="text" class="form-control taskInput" placeholder="Nouvelle tâche">
+									<input type="text" class="form-control taskTitle<?php echo $project['project_id'];?>" placeholder="Nouvelle tâche">
 								</td>
 								<td>
 									<button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></button>
@@ -75,19 +88,43 @@
 </div>
 
 <script type="text/javascript">
-$('.newTask').on('submit', function(e){
-	e.preventDefault();
-	var projectId = $(this).prop('name');
-	var title = $(this).closest('input.taskInput').val();
-	
-	var request = $.ajax({
-	  url: 'sources/shared/update.php',
-	  type: 'post',
-	  data: {"add-task": projectId, "title": title}
+$( document ).ready(function(){
+
+	$('#addProject').on('click', function(e){
+		$('#projectInput').show();
+		$('#projectButton').show();
 	});
 
-	request.done(function(){
-	  window.location.reload();
+	$('.newTask').on('submit', function(e){
+		e.preventDefault();
+		var projectId = $(this).prop('name');
+		var title = $('.taskTitle'+projectId).val();
+		
+		var request = $.ajax({
+		  url: 'sources/shared/update.php',
+		  type: 'post',
+		  data: {"add-task": projectId, "title": title}
+		});
+
+		request.done(function(){
+		  $('.taskTitle'+projectId).val('');
+		  window.location.reload();
+		});
+	});
+
+	$('#newProject').on('submit', function(e){
+		e.preventDefault();
+		var title = $('#projectTitle').val();
+
+		var request = $.ajax({
+		  url: 'sources/shared/update.php',
+		  type: 'post',
+		  data: {"add-project": 1, "title": title}
+		});
+
+		request.done(function(){
+		  window.location.reload();
+		});
 	});
 });
 </script>

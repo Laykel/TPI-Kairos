@@ -1,4 +1,11 @@
-<?php 
+<?php
+//--------------------------
+//Filename: update.php
+//Creation date: 17.05.2017
+//Author: Luc Wachter
+//Function: Contains update request to manipulate DB data from JS functions
+//--------------------------
+session_start();
 include("functions.php");
 date_default_timezone_set('Europe/Zurich');
 
@@ -10,6 +17,17 @@ if(isset($_POST['add-task'])){
 	//New task request
 	$createReq = "INSERT INTO task(task_title, task_dateCreation, task_timePassed, task_isClosed, project_fk)
 				VALUES('".$_POST['title']."', '".$datetime."', '00:00:00.0', 0, ".$_POST['add-task'].")";
+	dbRequest($createReq, "insert");
+}
+
+if(isset($_POST['add-project'])){
+	//Calculate current datetime
+	$dateObject = new DateTime();
+	$datetime = date_format($dateObject, "Y-m-d H:i:s");
+
+	//New project request
+	$createReq = "INSERT INTO project(project_title, project_dateCreation, project_isClosed, user_fk)
+				  VALUES('".$_POST['title']."', '".$datetime."', 0, ".$_SESSION['user_id'].")";
 	dbRequest($createReq, "insert");
 }
 
