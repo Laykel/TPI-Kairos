@@ -5,8 +5,9 @@ $('.project-title').on('click', function(){
 	$('#panel-details').load('sources/shared/projectDetails.php', projectId);
 
 	$('html, body').animate({
-        scrollTop: $('#panel-details').position().top
-    }, 300);
+        scrollTop: $('#details-top').offset().top
+    }, 500);
+    return false;
 });
 
 //
@@ -16,6 +17,7 @@ $('.task-title').on('click', function(){
 	$('#panel-details').load('sources/shared/taskDetails.php', taskId);
 
 	$('html, body').animate({
-        scrollTop: $('#panel-details').position().top
-    }, 300);
+        scrollTop: $('#details-top').position().top
+    }, 500);
+    return false;
 });

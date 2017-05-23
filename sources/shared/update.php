@@ -20,7 +20,7 @@ if(isset($addTask)){
 
 	//New task request
 	$createReq = "INSERT INTO task(task_title, task_dateCreation, task_timePassed, task_isClosed, project_fk)
-				VALUES('".$title."', '".$datetime."', '00:00:00.0', 0, ".$addTask.")";
+				VALUES('".$title."', '".$datetime."', '00:00:00', 0, ".$addTask.")";
 	dbRequest($createReq, "insert");
 }
 

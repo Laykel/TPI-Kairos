@@ -36,23 +36,23 @@
 						<?php foreach($project['task'] as $task){
 								if(!$task['task_isClosed']){ ?>
 							<tr>
-								<td id="<?php echo $task['task_id']; ?>" width="5%">
+								<td width="5%">
 									<input type="checkbox" class="taskCB">
 								</td>
-								<td class="task-title" id="<?php echo $task['task_id']; ?>" width="80%">
+								<td class="task-title" id="<?php echo $task['task_id']; ?>" width="70%">
 									<?php echo $task['task_title'];?>
 								</td>
-								<td width="5%">
+								<td width="10%">
 									<button class="btn btn-primary btn-xs timerPlay">
 										<span class="glyphicon glyphicon-play"></span>
 									</button>
 								</td>
-								<td width="5%" hidden="">
+								<td width="10%" hidden="">
 									<button class="btn btn-primary btn-xs timerPause">
 										<span class="glyphicon glyphicon-pause"></span>
 									</button>
 								</td>
-								<td width="10%">
+								<td id="timer<?php echo $task['task_id']; ?>" width="15%">
 									<?php echo $task['task_timePassed']; ?>
 								</td>
 							</tr>
@@ -90,12 +90,13 @@
 			</div>
 		<?php } ?>
 	</div>
-
+	<div id="details-top"></div>
 	<div class="col-sm-5">
 		<div class="panel panel-info fixed" id="panel-details"></div>
 	</div>
 </div>
 
+<!--<script src="http://jchavannes.com/include/scripts/3p/jquery.timer.js" type="text/javascript"></script>-->
 <script type="text/javascript">
 $( document ).ready(function(){
 
@@ -137,7 +138,7 @@ $( document ).ready(function(){
 	});
 
 	$('.taskCB').change(function(){
-		var taskId = $(this).closest('td').prop('id');
+		var taskId = $(this).closest('td').next('td').prop('id');
 		
 		var request = $.ajax({
 		  url: 'sources/shared/update.php',
@@ -151,7 +152,7 @@ $( document ).ready(function(){
 	});
 
 	$('.taskCBClosed').change(function(){
-		var taskId = $(this).closest('td').prop('id');
+		var taskId = $(this).closest('td').next('td').prop('id');
 		
 		var request = $.ajax({
 		  url: 'sources/shared/update.php',
@@ -166,7 +167,18 @@ $( document ).ready(function(){
 
 	$('.timerPlay').on('click', function(e){
 		$(this).closest('td').hide();
-		$(this).closest('.timerPause').show();
+		$(this).closest('td').next('td').show();
+
+		var timer = $(this).closest('td').next('td').next('td');
+		var start = new Date;
+		setInterval(function() {
+		    timer.text((new Date - start) / 1000);
+		}, 1000);
+	});
+
+	$('.timerPause').on('click', function(e){
+		$(this).closest('td').hide();
+		$(this).closest('td').prev('td').show();
 	});
 });
 </script>
