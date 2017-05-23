@@ -26,6 +26,10 @@ body{
 	cursor:pointer;
 }
 
+.panel-no-padding{
+    padding: 0px;
+}
+
 .project-title{
 	cursor:pointer;
 }

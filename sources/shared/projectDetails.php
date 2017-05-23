@@ -48,7 +48,7 @@ $line = $projectRes->fetch();
 <div class="panel-footer" id="<?php echo $line['project_id'];?>">
 	<?php if(!$line['project_isClosed']){ ?>
 		<button class="btn btn-default" id="close">Fermer</button>
-		<button class="btn btn-danger pull-right" id="remove-project">
+		<button class="btn btn-danger pull-right" id="removeProject">
 			<span class="glyphicon glyphicon-trash"></span>
 		</button>
 	<?php } else{ ?>

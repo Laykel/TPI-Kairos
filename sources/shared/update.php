@@ -4,70 +4,88 @@
 //Creation date: 17.05.2017
 //Author: Luc Wachter
 //Function: Contains update request to manipulate DB data from JS functions
+//			JS functions coming from modal.html and home.php
 //--------------------------
 session_start();
 include("functions.php");
 date_default_timezone_set('Europe/Zurich');
 
-if(isset($_POST['add-task'])){
+$post = secureArray($_POST);
+extract($post);
+
+if(isset($addTask)){
 	//Calculate current datetime
 	$dateObject = new DateTime();
 	$datetime = date_format($dateObject, "Y-m-d H:i:s");
 
 	//New task request
 	$createReq = "INSERT INTO task(task_title, task_dateCreation, task_timePassed, task_isClosed, project_fk)
-				VALUES('".$_POST['title']."', '".$datetime."', '00:00:00.0', 0, ".$_POST['add-task'].")";
+				VALUES('".$title."', '".$datetime."', '00:00:00.0', 0, ".$addTask.")";
 	dbRequest($createReq, "insert");
 }
 
-if(isset($_POST['add-project'])){
+if(isset($addProject)){
 	//Calculate current datetime
 	$dateObject = new DateTime();
 	$datetime = date_format($dateObject, "Y-m-d H:i:s");
 
 	//New project request
 	$createReq = "INSERT INTO project(project_title, project_dateCreation, project_isClosed, user_fk)
-				  VALUES('".$_POST['title']."', '".$datetime."', 0, ".$_SESSION['user_id'].")";
+				  VALUES('".$title."', '".$datetime."', 0, ".$_SESSION['user_id'].")";
 	dbRequest($createReq, "insert");
 }
 
-if(isset($_POST['close'])){
+if(isset($close)){
 	//Close project request
 	$closeReq = "UPDATE project SET project_isClosed=1
-				 WHERE project_id=".$_POST['close'];
+				 WHERE project_id=".$close;
 	dbRequest($closeReq, "update");
 }
 
-if(isset($_POST['reopen'])){
+if(isset($closeTask)){
+	//Close task request
+	$closeReq = "UPDATE task SET task_isClosed=1
+				 WHERE task_id=".$closeTask;
+	dbRequest($closeReq, "update");
+}
+
+if(isset($reopen)){
 	//Reopen project request
 	$openReq = "UPDATE project SET project_isClosed=0
-				WHERE project_id=".$_POST['reopen'];
+				WHERE project_id=".$reopen;
 	dbRequest($openReq, "update");
 }
 
-if(isset($_POST['remove-project'])){
+if(isset($reopenTask)){
+	//Reopen task request
+	$openReq = "UPDATE task SET task_isClosed=0
+				WHERE task_id=".$reopenTask;
+	dbRequest($openReq, "update");
+}
+
+if(isset($removeProject)){
 	//First remove the tasks
 	$removeReq = "DELETE FROM task
-				  WHERE project_fk=".$_POST['remove-project'];
+				  WHERE project_fk=".$removeProject;
 	dbRequest($removeReq, "delete");
 
 	//Remove project request
 	$removeReq = "DELETE FROM project
-				  WHERE project_id=".$_POST['remove-project'];
+				  WHERE project_id=".$removeProject;
 	dbRequest($removeReq, "delete");
 }
 
-if(isset($_POST['remove-task'])){
+if(isset($removeTask)){
 	//Remove task request
 	$removeReq = "DELETE FROM task
-				  WHERE task_id=".$_POST['remove-task'];
+				  WHERE task_id=".$removeTask;
 	dbRequest($removeReq, "delete");
 }
 
-if(isset($_POST['remove-account'])){
+if(isset($removeAccount)){
 	//Remove user request
 	$removeReq = "DELETE FROM user
-				  WHERE user_id=".$_POST['remove-account'];
+				  WHERE user_id=".$removeAccount;
 	dbRequest($removeReq, "delete");
 }
 ?>

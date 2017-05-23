@@ -44,7 +44,7 @@
   	  <p id="pseudo"> <?php echo $line['user_mail']; ?> </p>
       </div>
       <div class="panel-footer" id="<?php echo $line['user_id'];?>">
-        <button class="btn btn-danger" id="remove-account">Supprimer votre compte</button>
+        <button class="btn btn-danger" id="removeAccount">Supprimer votre compte</button>
       </div>
     </div>
   </div>

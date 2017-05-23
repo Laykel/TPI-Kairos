@@ -73,7 +73,7 @@ $commentRes = dbRequest($commentReq, "select");
 </div>
 <div class="panel-footer" id="<?php echo $line['task_id'];?>">
 	<?php if(!$line['project_isClosed']){ ?>
-	  <button class="btn btn-danger" id="remove-task">
+	  <button class="btn btn-danger" id="removeTask">
 	  	<span class="glyphicon glyphicon-trash"></span>
 	  </button>
 	<?php } ?>

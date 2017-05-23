@@ -7,15 +7,18 @@
 		      	<?php echo $project['project_title'];?>
 		   	  </h3>
 		    </div>
-		    <div class="panel-body">
+		    <div class="panel-body panel-no-padding">
 				<table class="table">
 					<?php foreach($project['task'] as $task){ 
 							if(!$task['task_isClosed']){ ?>
 						<tr>
-							<td class="task-title" id="<?php echo $task['task_id']; ?>">
-								<input type="checkbox" disabled=""><?php echo " ".$task['task_title']; ?>
+							<td width="5%">
+								<input type="checkbox" disabled="">
 							</td>
-							<td>
+							<td  class="task-title" id="<?php echo $task['task_id']; ?>" width="80%">
+								<?php echo $task['task_title']; ?>
+							</td>
+							<td width="10%">
 								<?php echo $task['task_timePassed']; ?>
 							</td>
 						</tr>
@@ -23,8 +26,11 @@
 					<?php foreach($project['task'] as $task){ 
 							if($task['task_isClosed']){ ?>
 						<tr>
+							<td>
+								<input type="checkbox" checked="" disabled="">
+							</td>
 							<td class="task-title" id="<?php echo $task['task_id']; ?>">
-								<input type="checkbox" checked="" disabled=""><?php echo " ".$task['task_title']; ?>
+								<?php echo $task['task_title']; ?>
 							</td>
 							<td>
 								<?php echo $task['task_timePassed']; ?>
