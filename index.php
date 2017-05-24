@@ -47,8 +47,11 @@ if(file_exists($script)){
 
     <!-- JavaScript libraries -->
     <script type="text/javascript" src="<?php echo ROOT;?>/assets/js/jquery.min.js"></script>
+    <!--<script src="https://code.jquery.com/jquery-1.5.2.min.js" integrity="sha256-jwoZ7oxgazWhCQSVHgon2hiW6v4zxuiMt7y+RV8Foko=" crossorigin="anonymous"></script>-->
+
     <script type="text/javascript" src="<?php echo ROOT;?>/assets/js/bootstrap.min.js" defer></script>
     <script type="text/javascript" src="<?php echo ROOT;?>/assets/js/displayDetails.js" defer></script>
+    <script type="text/javascript" src="<?php echo ROOT;?>/assets/js/stopwatch.js" defer></script>
   </head>
   <body>
 	  <!-- Navigation -->
