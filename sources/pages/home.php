@@ -41,6 +41,7 @@
 								</td>
 								<td class="task-title" id="<?php echo $task['task_id']; ?>" width="70%">
 									<?php echo $task['task_title'];?>
+									<span class="glyphicon glyphicon-info-sign pull-right"></span>
 								</td>
 								<td width="10%" disabled>
 									<button class="btn btn-primary btn-xs timerPlay" id="<?php echo $task['task_id'];?>">
@@ -53,15 +54,15 @@
 									</button>
 								</td>
 								<td id="timer" width="15%">
-									<?php //echo $task['task_timePassed']; ?>
-									<span class="sw_h<?php echo $task['task_id']; ?>">00</span>:<span class="sw_m<?php echo $task['task_id']; ?>">00</span>:<span class="sw_s<?php echo $task['task_id']; ?>">00</span>
+									<p class="timeDB"><?php echo $task['task_timePassed']; ?></p>
+									<p class="timeTimer" hidden=""><span class="sw_h<?php echo $task['task_id']; ?>">00</span>:<span class="sw_m<?php echo $task['task_id']; ?>">00</span>:<span class="sw_s<?php echo $task['task_id']; ?>">00</span></p>
 								</td>
 							</tr>
 						<?php } } ?>
 						<form class="newTask" name="<?php echo $project['project_id'];?>">
 							<tr>
 								<td colspan="3">
-									<input type="text" class="form-control newTaskTitle<?php echo $project['project_id'];?>" placeholder="Nouvelle tâche" maxlength="45">
+									<input type="text" class="form-control newTaskTitle<?php echo $project['project_id'];?>" placeholder="Nouvelle tâche" maxlength="100">
 								</td>
 								<td>
 									<button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></button>
@@ -158,28 +159,37 @@ $( document ).ready(function(){
 		var taskId = $(this).closest('td').next('td').prop('id');
 		
 		var request = $.ajax({
-		  url: 'sources/shared/update.php',
-		  type: 'post',
-		  data: {"reopenTask": taskId}
+			url: 'sources/shared/update.php',
+			type: 'post',
+			data: {"reopenTask": taskId}
 		});
 
 		request.done(function(){
-		  window.location.reload();
+			window.location.reload();
 		});
 	});
 
 	$('.timerPlay').on('click', function(e){
+		//Get the task's id
+		var id = $(this).prop('id');
+
+		//Hide the time from the DB and show the timer
+		$('.sw_h'+id).closest('p').show();
+		$('.sw_h'+id).closest('p').prev('p').hide();
+
 		//Disable all play buttons: one timer at a time
 		$('.timerPlay').prop("disabled", true);
 
-		var id = $(this).prop('id');
+		//Apply the ids that will allow the timer to run
 		$('.sw_h'+id).prop('id', 'sw_h');
 		$('.sw_m'+id).prop('id', 'sw_m');
 		$('.sw_s'+id).prop('id', 'sw_s');
 
+		//Hide the play button and show the pause button
 		$(this).closest('td').hide();
 		$(this).closest('td').next('td').show();
 
+		//Trigger the event and the timer
 		$("#sw_start").trigger("click");
 	});
 
@@ -187,17 +197,33 @@ $( document ).ready(function(){
 		//Re-activate all play buttons
 		$('.timerPlay').prop("disabled", false);
 
+		//Hide the pause button and show the play button
 		$(this).closest('td').hide();
 		$(this).closest('td').prev('td').show();
 
-		$("#sw_pause").trigger("click");
-
-		$("#sw_reset").trigger("click");
-
+		//Get the task's id
 		var id = $(this).prop('id');
-		$('.sw_h'+id).prop('id', '');
-		$('.sw_m'+id).prop('id', '');
-		$('.sw_s'+id).prop('id', '');
+		var time = $('.sw_h'+id).html() + ':' + $('.sw_m'+id).html() + ':' + $('.sw_s'+id).html();
+
+		//Update the DB with the new time
+		var request = $.ajax({
+			url: 'sources/shared/update.php',
+			type: 'post',
+			data: {"updateTime": time, "id": id}
+		});
+
+		request.done(function(){
+			window.location.reload();
+
+			//Trigger the pause of the timer and reset
+			$("#sw_pause").trigger("click");
+			$("#sw_reset").trigger("click");
+
+			//Remove the ids that allow the timer to run
+			$('.sw_h'+id).prop('id', '');
+			$('.sw_m'+id).prop('id', '');
+			$('.sw_s'+id).prop('id', '');
+		});
 	});
 });
 </script>

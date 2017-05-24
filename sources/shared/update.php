@@ -35,6 +35,25 @@ if(isset($addProject)){
 	dbRequest($createReq, "insert");
 }
 
+if(isset($updateTime)){
+	//Calculate current datetime
+	//$dateObject = new DateTime();
+	//$datetime = date_format($dateObject, "Y-m-d H:i:s");
+
+	$currentReq = "SELECT task_timePassed FROM task
+				   WHERE task_id=".$id;
+	$currentRes = dbRequest($currentReq, "select");
+	$line = $currentRes->fetch();
+
+	$secs = strtotime($line['task_timePassed']) - strtotime("00:00:00");
+	$newTime = date("H:i:s", strtotime($updateTime) + $secs);
+
+	//New project request
+	$timePassedReq = "UPDATE task SET task_timePassed='".$newTime."'
+					  WHERE task_id=".$id;
+	dbRequest($timePassedReq, "update");
+}
+
 if(isset($close)){
 	//Close project request
 	$closeReq = "UPDATE project SET project_isClosed=1
