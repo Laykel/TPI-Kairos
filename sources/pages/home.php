@@ -42,18 +42,19 @@
 								<td class="task-title" id="<?php echo $task['task_id']; ?>" width="70%">
 									<?php echo $task['task_title'];?>
 								</td>
-								<td width="10%">
-									<button class="btn btn-primary btn-xs timerPlay">
+								<td width="10%" disabled>
+									<button class="btn btn-primary btn-xs timerPlay" id="<?php echo $task['task_id'];?>">
 										<span class="glyphicon glyphicon-play"></span>
 									</button>
 								</td>
 								<td width="10%" hidden="">
-									<button class="btn btn-primary btn-xs timerPause">
+									<button class="btn btn-primary btn-xs timerPause" id="<?php echo $task['task_id'];?>">
 										<span class="glyphicon glyphicon-pause"></span>
 									</button>
 								</td>
-								<td id="timer<?php echo $task['task_id']; ?>" width="15%">
-									<?php echo $task['task_timePassed']; ?>
+								<td id="timer" width="15%">
+									<?php //echo $task['task_timePassed']; ?>
+									<span class="sw_h<?php echo $task['task_id']; ?>">00</span>:<span class="sw_m<?php echo $task['task_id']; ?>">00</span>:<span class="sw_s<?php echo $task['task_id']; ?>">00</span>
 								</td>
 							</tr>
 						<?php } } ?>
@@ -90,14 +91,15 @@
 			</div>
 		<?php } ?>
 	</div>
-	<p id="stopwatch"></p>
-	<div id="details-top"></div>
+	<input type="button" id="sw_start" hidden=""/>
+    <input type="button" id="sw_pause" hidden=""/>
+    <input type="button" id="sw_reset" hidden=""/>
+    <div id="details-top"></div>
 	<div class="col-sm-5">
 		<div class="panel panel-info fixed" id="panel-details"></div>
 	</div>
 </div>
 
-<script src="http://jchavannes.com/include/scripts/3p/jquery.timer.js" type="text/javascript"></script>
 <script type="text/javascript">
 $( document ).ready(function(){
 
@@ -167,57 +169,35 @@ $( document ).ready(function(){
 	});
 
 	$('.timerPlay').on('click', function(e){
+		//Disable all play buttons: one timer at a time
+		$('.timerPlay').prop("disabled", true);
+
+		var id = $(this).prop('id');
+		$('.sw_h'+id).prop('id', 'sw_h');
+		$('.sw_m'+id).prop('id', 'sw_m');
+		$('.sw_s'+id).prop('id', 'sw_s');
+
 		$(this).closest('td').hide();
 		$(this).closest('td').next('td').show();
 
-		var timerBlock = $(this).closest('td').next('td').next('td');
-
-		Watch.Timer.play();
+		$("#sw_start").trigger("click");
 	});
 
 	$('.timerPause').on('click', function(e){
+		//Re-activate all play buttons
+		$('.timerPlay').prop("disabled", false);
+
 		$(this).closest('td').hide();
 		$(this).closest('td').prev('td').show();
 
-		var timerBlock = $(this).closest('td').next('td').next('td');
+		$("#sw_pause").trigger("click");
 
-		Watch.Timer.pause();
+		$("#sw_reset").trigger("click");
+
+		var id = $(this).prop('id');
+		$('.sw_h'+id).prop('id', '');
+		$('.sw_m'+id).prop('id', '');
+		$('.sw_s'+id).prop('id', '');
 	});
-
-	var Watch = new (function(){
-		var stopwatch;
-	    var incrementTime = 1;
-	    var currentTime = 0;
-	    
-	    // Start the timer
-	    $(function() {
-	        stopwatch = $('#stopwatch');
-	        Watch.Timer = $.timer(updateTimer, incrementTime, true);  
-	    });
-
-	    // Output time and increment
-	    function updateTimer() {
-	        var timeString = formatTime(currentTime);
-	        stopwatch.html(timeString);
-	        currentTime += incrementTime;
-	    }
-
-	    // Reset timer
-	    this.resetStopwatch = function() {
-	        currentTime = 0;
-	        Watch.Timer.stop().once();
-	    };
-	});
-	function formatTime(time) {
-	    var min = parseInt(time / 6000),
-	        sec = parseInt(time / 100) - (min * 60);
-	    return (min > 0 ? pad(min, 2) : "00") + ":" + pad(sec, 2);
-	}
-	function pad(number, length) {
-	    var str = '' + number;
-	    while (str.length < length) {str = '0' + str;}
-	    return str;
-	}
-
 });
 </script>
