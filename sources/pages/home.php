@@ -5,7 +5,7 @@
 		<!-- Fin des messages d'alerte -->
 
 		<form id="newProject">
-			<table class="table table-borderless">
+			<table class="table table-borderless table-nomargin">
 				<tr>
 					<td width="20%">
 						<button type="button" class="btn btn-primary" id="addProject">
@@ -32,7 +32,7 @@
 					</h3>
 				</div>
 				<div class="panel-body panel-no-padding">
-					<table class="table table-striped table-hover">
+					<table class="table table-striped table-hover table-nomargin">
 						<?php foreach($project['task'] as $task){
 								if(!$task['task_isClosed']){ ?>
 							<tr>
@@ -41,7 +41,6 @@
 								</td>
 								<td class="task-title" id="<?php echo $task['task_id']; ?>" width="70%">
 									<?php echo $task['task_title'];?>
-									<span class="glyphicon glyphicon-info-sign pull-right"></span>
 								</td>
 								<td width="10%" disabled>
 									<button class="btn btn-primary btn-xs timerPlay" id="<?php echo $task['task_id'];?>">
@@ -101,8 +100,48 @@
 	</div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="comment-modal" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<!-- Modal Header -->
+			<div class="modal-header">
+				<h4 class="modal-title">
+					Modal title
+				</h4>
+			</div>
+
+			<!-- Modal Body -->
+			<div class="modal-body">
+				<form role="form">
+					<div class="form-group">
+						<label for="exampleInputEmail1">Email address</label>
+						<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"/>
+					</div>
+					<div class="form-group">
+						<label for="exampleInputPassword1">Password</label>
+						<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"/>
+					</div>
+					<div class="checkbox">
+						<label>
+							<input type="checkbox"/> Check me out
+						</label>
+					</div>
+					<button type="submit" class="btn btn-default">Submit</button>
+				</form>
+			</div>
+
+			<!-- Modal Footer -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Non</button>
+				<button type="button" class="btn btn-primary" data-dismiss="modal" id="yes">Sauvegarder</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript" src="<?php echo ROOT;?>/assets/js/dbUpdate.js"></script>
 <script type="text/javascript">
-$( document ).ready(function(){
 
 	$('#addProject').on('click', function(e){
 		$('#projectInput').toggle();
@@ -115,14 +154,14 @@ $( document ).ready(function(){
 		var title = $('.newTaskTitle'+projectId).val();
 
 		var request = $.ajax({
-		  url: 'sources/shared/update.php',
-		  type: 'post',
-		  data: {"addTask": projectId, "title": title}
+			url: 'sources/shared/update.php',
+			type: 'post',
+			data: {"addTask": projectId, "title": title}
 		});
 
 		request.done(function(){
-		  $('.taskTitle'+projectId).val('');
-		  window.location.reload();
+			$('.taskTitle'+projectId).val('');
+			window.location.reload();
 		});
 	});
 
@@ -131,99 +170,13 @@ $( document ).ready(function(){
 		var title = $('#projectTitle').val();
 
 		var request = $.ajax({
-		  url: 'sources/shared/update.php',
-		  type: 'post',
-		  data: {"addProject": 1, "title": title}
-		});
-
-		request.done(function(){
-		  window.location.reload();
-		});
-	});
-
-	$('.taskCB').change(function(){
-		var taskId = $(this).closest('td').next('td').prop('id');
-		
-		var request = $.ajax({
-		  url: 'sources/shared/update.php',
-		  type: 'post',
-		  data: {"closeTask": taskId}
-		});
-
-		request.done(function(){
-		  window.location.reload();
-		});
-	});
-
-	$('.taskCBClosed').change(function(){
-		var taskId = $(this).closest('td').next('td').prop('id');
-		
-		var request = $.ajax({
 			url: 'sources/shared/update.php',
 			type: 'post',
-			data: {"reopenTask": taskId}
+			data: {"addProject": 1, "title": title}
 		});
 
 		request.done(function(){
 			window.location.reload();
 		});
 	});
-
-	$('.timerPlay').on('click', function(e){
-		//Get the task's id
-		var id = $(this).prop('id');
-
-		//Hide the time from the DB and show the timer
-		$('.sw_h'+id).closest('p').show();
-		$('.sw_h'+id).closest('p').prev('p').hide();
-
-		//Disable all play buttons: one timer at a time
-		$('.timerPlay').prop("disabled", true);
-
-		//Apply the ids that will allow the timer to run
-		$('.sw_h'+id).prop('id', 'sw_h');
-		$('.sw_m'+id).prop('id', 'sw_m');
-		$('.sw_s'+id).prop('id', 'sw_s');
-
-		//Hide the play button and show the pause button
-		$(this).closest('td').hide();
-		$(this).closest('td').next('td').show();
-
-		//Trigger the event and the timer
-		$("#sw_start").trigger("click");
-	});
-
-	$('.timerPause').on('click', function(e){
-		//Re-activate all play buttons
-		$('.timerPlay').prop("disabled", false);
-
-		//Hide the pause button and show the play button
-		$(this).closest('td').hide();
-		$(this).closest('td').prev('td').show();
-
-		//Get the task's id
-		var id = $(this).prop('id');
-		var time = $('.sw_h'+id).html() + ':' + $('.sw_m'+id).html() + ':' + $('.sw_s'+id).html();
-
-		//Update the DB with the new time
-		var request = $.ajax({
-			url: 'sources/shared/update.php',
-			type: 'post',
-			data: {"updateTime": time, "id": id}
-		});
-
-		request.done(function(){
-			window.location.reload();
-
-			//Trigger the pause of the timer and reset
-			$("#sw_pause").trigger("click");
-			$("#sw_reset").trigger("click");
-
-			//Remove the ids that allow the timer to run
-			$('.sw_h'+id).prop('id', '');
-			$('.sw_m'+id).prop('id', '');
-			$('.sw_s'+id).prop('id', '');
-		});
-	});
-});
 </script>

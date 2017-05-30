@@ -82,6 +82,13 @@ if(isset($reopenTask)){
 	dbRequest($openReq, "update");
 }
 
+if(isset($removeTask)){
+	//Remove task request
+	$removeReq = "DELETE FROM task
+				  WHERE task_id=".$removeTask;
+	dbRequest($removeReq, "delete");
+}
+
 if(isset($removeProject)){
 	//First remove the tasks
 	$removeReq = "DELETE FROM task
@@ -94,14 +101,24 @@ if(isset($removeProject)){
 	dbRequest($removeReq, "delete");
 }
 
-if(isset($removeTask)){
-	//Remove task request
-	$removeReq = "DELETE FROM task
-				  WHERE task_id=".$removeTask;
-	dbRequest($removeReq, "delete");
-}
-
 if(isset($removeAccount)){
+
+	$projectReq = "SELECT project_id FROM project 
+				   WHERE user_fk=".$removeAccount;
+	$projectRes = dbRequest($projectReq, "select");
+
+	//First remove the tasks
+	while($line = $projectRes->fetch()){
+		$removeReq = "DELETE FROM task
+					  WHERE project_fk=".$line['project_id'];
+		dbRequest($removeReq, "delete");
+	}
+
+	//Then remove the projects
+	$removeReq = "DELETE FROM project
+				  WHERE user_fk=".$removeAccount;
+	dbRequest($removeReq, "delete");
+
 	//Remove user request
 	$removeReq = "DELETE FROM user
 				  WHERE user_id=".$removeAccount;

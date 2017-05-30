@@ -56,7 +56,6 @@ textarea{
     border: none;
 }
 
-/*.fixed {
-    top:80px;
-    position:fixed;
-}*/
+.table-nomargin {
+    margin-bottom: 0px;
+}
