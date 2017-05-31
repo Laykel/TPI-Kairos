@@ -1,6 +1,5 @@
 <?php 
 include("functions.php");
-include("detailsChange.php");
 include("modal.html");
 
 //Get all task data
@@ -22,9 +21,10 @@ $commentRes = dbRequest($commentReq, "select");
 <div class="panel-body">
 	<u><small>Appartient au projet: <?php echo $line['project_title'];?></small></u><br><br>
 	<form method="post" action="">
+		<input type="hidden" name="fTask" value="<?php echo $line['task_id'];?>">
 		<div class="form-group">
 			<label for="titre">Titre de la tâche</label>
-			<input type="text" class="form-control" id="titre" name="fTitre" maxlength="45" value="<?php echo $line['task_title'];?>">
+			<input type="text" class="form-control" id="titre" name="fTitle" maxlength="45" value="<?php echo $line['task_title'];?>">
 		</div>
 		<div class="form-group">
 			<label for="desc">Description</label>

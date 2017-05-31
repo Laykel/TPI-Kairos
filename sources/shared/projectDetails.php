@@ -1,6 +1,5 @@
 <?php 
 include("functions.php");
-include("detailsChange.php");
 include("modal.html");
 
 //Get all project data
@@ -15,9 +14,10 @@ $line = $projectRes->fetch();
 </div>
 <div class="panel-body">
 	<form method="post" action="">
+		<input type="hidden" name="fProject" value="<?php echo $line['project_id'];?>">
 		<div class="form-group">
 			<label for="titre">Titre du projet</label>
-			<input type="text" class="form-control" id="titre" name="fTitre" maxlength="45" value="<?php echo $line['project_title'];?>">
+			<input type="text" class="form-control" id="titre" name="fTitle" maxlength="45" value="<?php echo $line['project_title'];?>">
 		</div>
 		<div class="form-group">
 			<label for="desc">Description</label>
@@ -44,7 +44,8 @@ $line = $projectRes->fetch();
 		<?php } ?>
 	</form> 
 </div>
-<!-- Footer: Boutons de fermeture et de suppression -->
+
+<!-- Footer: Close and delete buttons -->
 <div class="panel-footer" id="<?php echo $line['project_id'];?>">
 	<?php if(!$line['project_isClosed']){ ?>
 		<button class="btn btn-default" id="close">Fermer</button>

@@ -4,7 +4,7 @@
 //Creation date: 17.05.2017
 //Author: Luc Wachter
 //Function: Contains update request to manipulate DB data from JS functions
-//			JS functions coming from modal.html and home.php
+//			JS functions coming from dbUpdate.js and home.php
 //--------------------------
 session_start();
 include("functions.php");
@@ -12,6 +12,17 @@ date_default_timezone_set('Europe/Zurich');
 
 $post = secureArray($_POST);
 extract($post);
+
+if(isset($addComment)){
+	//Calculate current datetime
+	$dateObject = new DateTime();
+	$datetime = date_format($dateObject, "Y-m-d H:i:s");
+
+	//New task request
+	$createReq = "INSERT INTO comment(comment_content, comment_date, task_fk)
+				VALUES('".$addComment."', '".$datetime."', ".$id.")";
+	dbRequest($createReq, "insert");
+}
 
 if(isset($addTask)){
 	//Calculate current datetime

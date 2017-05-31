@@ -19,6 +19,27 @@ if(isset($_GET['errorEmpty'])){ ?>
 	</div>
 <?php }
 
+if(isset($_GET['titleEmpty'])){ ?>
+	<div class="alert alert-dismissible alert-warning">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<strong>Erreur!</strong> Veuillez remplir au moins le champ "Titre".
+	</div>
+<?php }
+
+if(isset($_GET['errorDate'])){ ?>
+	<div class="alert alert-dismissible alert-warning">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<strong>Erreur!</strong> Les dates doivent avoir le format suivant: '31-05-2017 12:15:25'.
+	</div>
+<?php }
+
+if(isset($_GET['errorTime'])){ ?>
+	<div class="alert alert-dismissible alert-warning">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<strong>Erreur!</strong> Le temps passé sur la tâche doit avoir le format suivant: '12:15:25'.
+	</div>
+<?php }
+
 if(isset($_GET['existingEmail'])){ ?>
 	<div class="alert alert-dismissible alert-warning">
 		<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -39,6 +60,13 @@ if(isset($_GET['errorCo'])){ ?>
 		<strong>Attention!</strong> Pseudonyme et/ou mot de passe incorrect(s).
 	</div>
 <?php } 
+
+if(isset($_GET['changeSuccess'])){ ?>
+	<div class="alert alert-dismissible alert-success">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<strong>Succès!</strong> La modification des détails a réussi.
+	</div>
+<?php }
 
 if(isset($_GET['profileSuccess'])){ ?>
 	<div class="alert alert-dismissible alert-success">
