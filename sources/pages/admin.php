@@ -22,7 +22,20 @@
 								<td><?php echo $line['user_pseudo'];?></td>
 								<td><?php echo $line['user_mail'];?></td>
 								<td><?php echo $line['user_isAdmin'];?></td>
-								<td><button class="btn btn-warning btn-xs">Modifier</button></td>
+								<td>
+									<a href="<?php echo URL;?>?page=profile&id=<?php echo $line['user_id'];?>">
+										<button class="btn btn-warning btn-xs">
+											<span class="glyphicon glyphicon-cog"></span>
+										</button></a>
+									<a href="<?php echo URL;?>?page=home&id=<?php echo $line['user_id'];?>">
+										<button class="btn btn-warning btn-xs">
+											<span class="glyphicon glyphicon-th-list"></span>
+										</button></a>
+									<a href="<?php echo URL;?>?page=journal&id=<?php echo $line['user_id'];?>">
+										<button class="btn btn-warning btn-xs">
+											<span class="glyphicon glyphicon-align-justify"></span>
+										</button></a>
+								</td>
 							</tr>
 						<?php } ?>
 					</tbody>

@@ -8,9 +8,17 @@
 
 $title = "Kairos - Projets";
 
+//If the administrator wants to change user data
+if($_SESSION['isAdmin'] && isset($_GET['id'])){
+	$user_id = $_GET['id'];
+	$admin = true;
+}
+else{
+	$user_id = $_SESSION['user_id'];
+}
 
 $projects = array();
-$projectTab = getProjects($_SESSION['user_id'], 1, $projects);
+$projectTab = getProjects($user_id, 1, $projects);
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	//Secure data coming from the form

@@ -2,14 +2,12 @@
 -- Thu Jun  1 08:22:50 2017
 -- Model: New Model    Version: 1.0
 -- MySQL Workbench Forward Engineering
+--
+-- Luc Wachter: added insert statements
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
-
--- -----------------------------------------------------
--- Schema kairos_db
--- -----------------------------------------------------
 
 -- -----------------------------------------------------
 -- Schema kairos_db
@@ -31,10 +29,12 @@ CREATE TABLE IF NOT EXISTS `kairos_db`.`user` (
   PRIMARY KEY (`user_id`))
 ENGINE = InnoDB;
 
--- Insert test data --
+-- Insert test users --
 INSERT INTO `user` (`user_id`, `user_pseudo`, `user_password`, `user_mail`, `user_isAdmin`) VALUES
 (1, 'admin', '$2y$10$3A6hmZ/cHoCVnA39xZlo5OLzzuKNhETVgkNoQezK4t89EVVApL2Bu', 'luc.wachter@cpnv.ch', 1),
-(2, 'test', '$2y$10$1PdWfvQaShpS9wWYJm/TL.N.CegXFEK3bb1QFMLPNnTjNc6G.vkKW', 'genesis.redondo-colls@cpnv.ch', 0);
+(2, 'test', '$2y$10$1PdWfvQaShpS9wWYJm/TL.N.CegXFEK3bb1QFMLPNnTjNc6G.vkKW', 'test@auto.com', 0),
+(3, 'autre', '$2y$10$1PdWfvQaShpS9wWYJm/TL.N.CegXFEK3bb1QFMLPNnTjNc6G.vkKW', 'autre@auto.com', 0),
+(4, 'dernier', '$2y$10$1PdWfvQaShpS9wWYJm/TL.N.CegXFEK3bb1QFMLPNnTjNc6G.vkKW', 'dernier@auto.com', 0);
 
 -- -----------------------------------------------------
 -- Table `kairos_db`.`project`
@@ -60,9 +60,9 @@ CREATE TABLE IF NOT EXISTS `kairos_db`.`project` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
--- Insert test data --
+-- Insert test projects --
 INSERT INTO `project` (`project_id`, `project_title`, `project_description`, `project_dateCreation`, `project_dateClosed`, `project_plannedBeginning`, `project_plannedEnd`, `project_isClosed`, `user_fk`) VALUES
-(1, 'Ajout des données de test', 'Un petit projet pour ajouter les données de test dans le fichier de création de cette dernière.', '2017-06-01 09:30:00', '2017-06-01 10:45:00', '2017-06-01 09:33:25', '2017-06-01 10:35:00', 1, 2),
+(1, 'Ajout des données de test', 'Un petit projet pour ajouter les données de test dans le fichier de création de la base de données.', '2017-06-01 09:30:00', '2017-06-01 10:45:00', '2017-06-01 09:33:25', '2017-06-01 10:35:00', 1, 2),
 (2, 'Projet \"cookbook\"', 'Mon projet personnel de création de livre de cuisine.', '2017-06-01 14:00:00', NULL, '2017-06-03 08:00:00', '2017-11-12 00:00:00', 0, 2),
 (3, 'Liste de courses', 'Le site n\'est pas fait pour les listes de courses, mais ça marche aussi.', '2017-05-11 09:00:00', NULL, '2017-05-12 13:30:00', NULL, 0, 2),
 (4, 'Administrer', 'Un projet pour mes tâches d\'administration de Kairos.', '2017-05-24 15:56:13', NULL, NULL, NULL, 0, 1);
@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `kairos_db`.`task` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
--- Insert test data --
+-- Insert test tasks --
 INSERT INTO `task` (`task_id`, `task_title`, `task_description`, `task_timePassed`, `task_dateCreation`, `task_dateClosed`, `task_plannedBeginning`, `task_plannedEnd`, `task_isClosed`, `project_fk`) VALUES
 (1, 'Générer le script de création de la BD', 'Utiliser MySQL Workbench pour faire le script de création.', '00:12:13', '2017-06-01 09:30:45', '2017-06-01 09:48:32', '2017-06-01 09:35:00', '2017-06-01 09:50:00', 1, 1),
 (2, 'Créer les requêtes d\'insertion de données', NULL, '00:43:13', '2017-06-01 09:31:20', '2017-06-01 11:20:29', '2017-06-01 10:35:00', '2017-06-01 11:35:00', 1, 1),
@@ -131,7 +131,7 @@ CREATE TABLE IF NOT EXISTS `kairos_db`.`comment` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
--- Insert test data --
+-- Insert test comments --
 INSERT INTO `comment` (`comment_id`, `comment_content`, `comment_date`, `task_fk`) VALUES
 (1, 'Recettes avec des pâtes', '2017-05-09 13:39:00', 4),
 (2, 'Recettes exotiques, d\'un peu partout dans le monde', '2017-05-09 13:39:00', 4),

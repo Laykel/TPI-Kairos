@@ -47,8 +47,6 @@ if(file_exists($script)){
 
     <!-- JavaScript libraries -->
     <script type="text/javascript" src="<?php echo ROOT;?>/assets/js/jquery.min.js"></script>
-    <!--<script src="https://code.jquery.com/jquery-1.5.2.min.js" integrity="sha256-jwoZ7oxgazWhCQSVHgon2hiW6v4zxuiMt7y+RV8Foko=" crossorigin="anonymous"></script>-->
-
     <script type="text/javascript" src="<?php echo ROOT;?>/assets/js/bootstrap.min.js" defer></script>
     <script type="text/javascript" src="<?php echo ROOT;?>/assets/js/displayDetails.js" defer></script>
     <script type="text/javascript" src="<?php echo ROOT;?>/assets/js/stopwatch.js" defer></script>
@@ -70,9 +68,9 @@ if(file_exists($script)){
 		    <?php if(isset($_SESSION['isConnected'])){ ?>
           <div class="collapse navbar-collapse" id="navbar">
             <ul class="nav navbar-nav">
-              <li <?php if($page=='home') echo 'class="active"';?>><a href="<?php echo URL; ?>?page=home">Projets<span class="sr-only">(current)</span></a></li>
-              <li <?php if($page=='journal') echo 'class="active"';?>><a href="<?php echo URL; ?>?page=journal">Journal</a></li>
-              <?php if($_SESSION['isAdmin']){ ?> <li <?php if($page=='admin') echo 'class="active"'; ?>><a href="<?php echo URL; ?>?page=admin">Administration</a></li> <?php } ?>
+              <li <?php if($page=='home') echo 'class="active"';?> ><a href="<?php echo URL;?>?page=home">Projets<span class="sr-only">(current)</span></a></li>
+              <li <?php if($page=='journal') echo 'class="active"';?>><a href="<?php echo URL;?>?page=journal">Journal</a></li>
+              <?php if($_SESSION['isAdmin']){ ?> <li <?php if($page=='admin') echo 'class="active"';?>><a href="<?php echo URL; ?>?page=admin">Administration</a></li> <?php } ?>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
@@ -88,10 +86,21 @@ if(file_exists($script)){
 	    <?php } ?>
       </div>
     </nav>
-    <!-- Fin de Navigation -->
+    <!-- End of navigation -->
 
-	<!-- Inclusion de la page -->
+	<!-- Include the page -->
 	<div class="container">
+
+    <!-- Administrator mode warning -->
+    <?php if(isset($admin) && $admin){ ?>
+      <div class="alert alert-dismissible alert-danger">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <p><strong>Attention!</strong> Vous êtes actuellement en mode administrateur, où vous pouvez modifier et supprimer les données des autres utilisateurs.</p> 
+        <p>Pour revenir sur vos données personnelles, cliquez simplement sur l'un des onglets ci-dessus.</p>
+      </div>
+    <?php } ?>
+    <!-- End of administrator mode warning -->
+
 	  <?php
 	  	$pagePath = ROOT."/sources/pages/".$page.".php";
 	  	if(file_exists($pagePath)){
@@ -102,7 +111,7 @@ if(file_exists($script)){
 		}
 	  ?>
 	</div>
-	<!-- Fin de la page -->
+	<!-- End of the page -->
 
     <!-- Footer -->
     <footer>
@@ -116,6 +125,6 @@ if(file_exists($script)){
         </div>
       </div>
     </footer>
-    <!-- Fin du footer -->
+    <!-- End of footer -->
   </body>
 </html>

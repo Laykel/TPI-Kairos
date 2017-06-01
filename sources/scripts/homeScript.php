@@ -8,8 +8,17 @@
 
 $title = "Kairos - Projets";
 
+//If the administrator wants to change user data
+if($_SESSION['isAdmin'] && isset($_GET['id'])){
+	$user_id = $_GET['id'];
+	$admin = true;
+}
+else{
+	$user_id = $_SESSION['user_id'];
+}
+
 $projects = array();
-$projectTab = getProjects($_SESSION['user_id'], 0, $projects);
+$projectTab = getProjects($user_id, 0, $projects);
 
 //Calculate current datetime
 date_default_timezone_set('Europe/Zurich');
@@ -99,10 +108,16 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 					   WHERE task_id = ".$fTask;
 			dbRequest($timeReq, "update");
 		}
-		header('location:../../?page=home&changeSuccess');
+		if($admin)
+			header('location:'.URL.'?page=home&changeSuccess&id='.$user_id);
+		else
+			header('location:'.URL.'?page=home&changeSuccess');
 	}
 	else{
-		header('location:../../?page=home'.$qstring);
+		if($admin)
+			header('location:../../?page=home&id='.$user_id.$qstring);
+		else
+			header('location:../../?page=home'.$qstring);
 	}
 }
 ?>

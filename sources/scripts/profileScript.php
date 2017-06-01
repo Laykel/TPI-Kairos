@@ -8,9 +8,18 @@
 
 $title = "Kairos - Profil";
 
+//If the administrator wants to change user data
+if($_SESSION['isAdmin'] && isset($_GET['id'])){
+	$user_id = $_GET['id'];
+	$admin = true;
+}
+else{
+	$user_id = $_SESSION['user_id'];
+}
+
 //Retrieve user data
 $userReq = "SELECT user_id, user_pseudo, user_mail FROM user
-			WHERE user_id='".$_SESSION['user_id']."'";
+			WHERE user_id='".$user_id."'";
 $userRes = dbRequest($userReq, "select");
 $line = $userRes->fetch();
 
@@ -57,26 +66,33 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 		if($fPseudo != ''){
 			$pseudoReq = "UPDATE user SET user_pseudo = '".$fPseudo."'
-						  WHERE user_id = ".$_SESSION['user_id'];
+						  WHERE user_id = ".$user_id;
 			dbRequest($pseudoReq, "update");
 
-			$_SESSION['pseudo'] = $fPseudo;
+			//If it wasn't changed by the admin, refresh pseudo
+			if(!$admin) $_SESSION['pseudo'] = $fPseudo;
 		}
 		if($fEmail != '') {
 			$mailReq = "UPDATE user SET user_mail = '".$fEmail."'
-					    WHERE user_id = ".$_SESSION['user_id'];
+					    WHERE user_id = ".$user_id;
 			dbRequest($mailReq, "update");
 		}
 		if($fPassword != '') {
 			$passwordReq = "UPDATE user SET user_password = '".$hashedPassword."'
-						    WHERE user_id = ".$_SESSION['user_id'];
+						    WHERE user_id = ".$user_id;
 			dbRequest($passwordReq, "update");
 		}
 
-    	header('location:'.URL.'?page=home&profileSuccess');
+		if($admin) 
+			header('location:'.URL.'?page=admin&profileSuccess');
+		else
+			header('location:'.URL.'?page=home&profileSuccess');
     }
     else{
-    	header('location:'.URL.'/?page=profile'.$qstring);
+    	if($admin)
+    		header('location:'.URL.'/?page=profile&id='.$user_id.$qstring);
+    	else
+    		header('location:'.URL.'/?page=profile'.$qstring);
     }
 }
 ?>
