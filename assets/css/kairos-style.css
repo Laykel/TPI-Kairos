@@ -1,9 +1,10 @@
 body{
-	padding-top: 55px;
+	padding-top: 60px;
 }
 
-body{
-	padding-right: 0 !important;
+body {
+  overflow-y:auto !important;
+  padding-right: 0px !important;
 }
 
 .navbar{
@@ -42,6 +43,10 @@ textarea{
 	font-size: 12pt;
 }
 
+.alert{
+	margin-bottom: 8px;
+}
+
 .affix {
     top:50px;
     position:fixed;
@@ -57,5 +62,5 @@ textarea{
 }
 
 .table-nomargin {
-    margin-bottom: 0px;
+    margin-bottom: 10px;
 }

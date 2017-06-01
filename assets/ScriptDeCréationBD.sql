@@ -25,12 +25,16 @@ DROP TABLE IF EXISTS `kairos_db`.`user` ;
 CREATE TABLE IF NOT EXISTS `kairos_db`.`user` (
   `user_id` INT NOT NULL AUTO_INCREMENT,
   `user_pseudo` VARCHAR(45) NOT NULL,
-  `user_password` VARCHAR(40) NOT NULL,
+  `user_password` VARCHAR(255) NOT NULL,
   `user_mail` VARCHAR(254) NOT NULL,
   `user_isAdmin` TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`user_id`))
 ENGINE = InnoDB;
 
+-- Insert test data --
+INSERT INTO `user` (`user_id`, `user_pseudo`, `user_password`, `user_mail`, `user_isAdmin`) VALUES
+(1, 'admin', '$2y$10$1PdWfvQaShpS9wWYJm/TL.N.CegXFEK3bb1QFMLPNnTjNc6G.vkKW', 'luc.wachter@cpnv.ch', 1),
+(2, 'test', '$2y$10$1PdWfvQaShpS9wWYJm/TL.N.CegXFEK3bb1QFMLPNnTjNc6G.vkKW', 'genesis.redondo-colls@cpnv.ch', 0);
 
 -- -----------------------------------------------------
 -- Table `kairos_db`.`project`
@@ -56,6 +60,12 @@ CREATE TABLE IF NOT EXISTS `kairos_db`.`project` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+-- Insert test data --
+INSERT INTO `project` (`project_id`, `project_title`, `project_description`, `project_dateCreation`, `project_dateClosed`, `project_plannedBeginning`, `project_plannedEnd`, `project_isClosed`, `user_fk`) VALUES
+(1, 'Ajout des données de test', 'Un petit projet pour ajouter les données de test dans le fichier de création de la base de données.', '2017-06-01 09:30:00', '2017-06-01 10:45:00', '2017-06-01 09:33:25', '2017-06-01 10:35:00', 1, 2),
+(2, 'Projet \"cookbook\"', 'Mon projet personnel de création de livre de cuisine.', '2017-06-01 14:00:00', NULL, '2017-06-03 08:00:00', '2017-11-12 00:00:00', 0, 2),
+(3, 'Liste de courses', 'Le site n\'est pas fait pour les listes de courses, mais ça marche aussi.', '2017-05-11 09:00:00', NULL, '2017-05-12 13:30:00', NULL, 0, 2),
+(4, 'Administrer', 'Un projet pour mes tâches d\'administration de Kairos.', '2017-05-24 15:56:13', NULL, NULL, NULL, 0, 1);
 
 -- -----------------------------------------------------
 -- Table `kairos_db`.`task`
@@ -66,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `kairos_db`.`task` (
   `task_id` INT NOT NULL AUTO_INCREMENT,
   `task_title` VARCHAR(45) NOT NULL,
   `task_description` VARCHAR(500) NULL,
-  `task_timePassed` TIME(1) NULL,
+  `task_timePassed` TIME(0) NULL,
   `task_dateCreation` DATETIME NOT NULL,
   `task_dateClosed` DATETIME NULL,
   `task_plannedBeginning` DATETIME NULL,
@@ -82,6 +92,25 @@ CREATE TABLE IF NOT EXISTS `kairos_db`.`task` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+-- Insert test data --
+INSERT INTO `task` (`task_id`, `task_title`, `task_description`, `task_timePassed`, `task_dateCreation`, `task_dateClosed`, `task_plannedBeginning`, `task_plannedEnd`, `task_isClosed`, `project_fk`) VALUES
+(1, 'Générer le script de création de la BD', 'Utiliser MySQL Workbench pour faire le script de création.', '00:12:13', '2017-06-01 09:30:45', '2017-06-01 09:48:32', '2017-06-01 09:35:00', '2017-06-01 09:50:00', 1, 1),
+(2, 'Créer les requêtes d\'insertion de données', NULL, '00:43:13', '2017-06-01 09:31:20', '2017-06-01 11:20:29', '2017-06-01 10:35:00', '2017-06-01 11:35:00', 1, 1),
+(3, 'Créer le script final', 'Ajout des requêtes créées au préalable, dans le script généré par Workbench.', '00:09:56', '2017-06-01 09:32:03', '2017-06-01 11:35:13', '2017-06-01 11:35:00', '2017-06-01 11:45:00', 1, 1),
+(4, 'Tester des recettes', 'Essayer un maximum de choses différentes, modifier les quantités et les ingrédients.', '05:56:27', '2017-05-12 08:00:00', NULL, NULL, NULL, 1, 2),
+(5, 'Rédiger des articles', 'Un peu d\'écriture et voilà!', '00:00:00', '2017-05-17 08:00:00', NULL, NULL, NULL, 0, 2),
+(6, 'Chercher un éditeur', 'Oui, c\'est aussi simple que ça', '00:00:00', '2017-05-17 08:10:00', NULL, NULL, NULL, 0, 2),
+(7, 'Pain sandwich', NULL, '00:00:09', '2017-05-11 09:00:06', NULL, NULL, NULL, 1, 3),
+(8, 'Emmental', NULL, '00:00:00', '2017-05-11 09:00:10', NULL, NULL, NULL, 1, 3),
+(9, 'Beurre', NULL, '00:00:00', '2017-05-11 09:00:13', NULL, NULL, NULL, 1, 3),
+(10, 'Lait', NULL, '00:00:00', '2017-05-11 09:01:35', NULL, NULL, NULL, 0, 3),
+(11, 'Jus de fruits', NULL, '00:00:00', '2017-05-11 09:01:40', NULL, NULL, NULL, 0, 3),
+(12, 'Spaghettis', NULL, '00:00:00', '2017-05-11 09:01:42', NULL, NULL, NULL, 0, 3),
+(13, 'Sauce tomate', NULL, '00:00:00', '2017-05-11 09:14:10', NULL, NULL, NULL, 0, 3),
+(14, 'Sel/poivre', NULL, '00:00:00', '2017-05-11 09:14:25', NULL, NULL, NULL, 1, 3),
+(15, 'Répondre aux mails des utilisateurs', 'Encore un oubli de mot de passe. Ils pourraient au moins le faire eux-même...', '00:34:01', '2017-05-24 16:01:13', '2017-05-24 18:15:37', NULL, NULL, 1, 4),
+(16, 'Vérifier s\'il y a des abus', NULL, '00:00:00', '2017-05-24 16:01:13', NULL, NULL, NULL, 0, 4),
+(17, 'Penser à des améliorations', NULL, '00:00:00', '2017-05-28 09:47:06', NULL, NULL, '2017-05-28 09:47:06', 0, 4);
 
 -- -----------------------------------------------------
 -- Table `kairos_db`.`comment`
@@ -101,6 +130,16 @@ CREATE TABLE IF NOT EXISTS `kairos_db`.`comment` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
+-- Insert test data --
+INSERT INTO `comment` (`comment_id`, `comment_content`, `comment_date`, `task_fk`) VALUES
+(1, 'Recettes avec des pâtes', '2017-05-09 13:39:00', 4),
+(2, 'Recettes exotiques, d\'un peu partout dans le monde', '2017-05-09 13:39:00', 4),
+(3, 'Des recettes à base de poulet', '2017-05-09 13:39:00', 4),
+(4, 'Mince! Comment on ferme se truc??', '2017-05-11 09:00:14', 7),
+(5, 'Premiers mails.', '2017-05-24 16:17:30', 15),
+(6, 'Mails suivants.', '2017-05-24 16:51:28', 15),
+(7, 'Regénération de mot de passe.', '2017-05-24 17:16:50', 15);
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

@@ -49,58 +49,60 @@
 					</h3>
 				</div>
 				<div class="panel-body panel-no-padding">
-					<table class="table table-striped table-hover table-nomargin">
-						<?php foreach($project['task'] as $task){
-								if(!$task['task_isClosed']){ ?>
-							<tr>
-								<td width="5%">
-									<input type="checkbox" class="taskCB">
-								</td>
-								<td class="task-title" id="<?php echo $task['task_id']; ?>" width="70%">
-									<?php echo $task['task_title'];?>
-								</td>
-								<td width="10%" disabled>
-									<button class="btn btn-primary btn-xs timerPlay" id="<?php echo $task['task_id'];?>">
-										<span class="glyphicon glyphicon-play"></span>
-									</button>
-								</td>
-								<td width="10%" hidden="">
-									<button class="btn btn-primary btn-xs timerPause" id="<?php echo $task['task_id'];?>">
-										<span class="glyphicon glyphicon-pause"></span>
-									</button>
-								</td>
-								<td id="timer" width="15%">
-									<p class="timeDB"><?php echo $task['task_timePassed']; ?></p>
-									<p class="timeTimer" hidden=""><span class="sw_h<?php echo $task['task_id']; ?>">00</span>:<span class="sw_m<?php echo $task['task_id']; ?>">00</span>:<span class="sw_s<?php echo $task['task_id']; ?>">00</span></p>
-								</td>
-							</tr>
-						<?php } } ?>
-						<form class="newTask" name="<?php echo $project['project_id'];?>">
-							<tr>
-								<td colspan="3">
-									<input type="text" class="form-control newTaskTitle<?php echo $project['project_id'];?>" placeholder="Nouvelle tâche" maxlength="100">
-								</td>
-								<td>
-									<button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></button>
-								</td>
-							</tr>
-						</form>
-						<?php foreach($project['task'] as $task){ 
-								if($task['task_isClosed']){ ?>
-							<tr>
-								<td id="<?php echo $task['task_id']; ?>">
-									<input type="checkbox" class="taskCBClosed" checked="">
-								</td>
-								<td class="task-title" id="<?php echo $task['task_id']; ?>">
-									<?php echo " ".$task['task_title']; ?>
-								</td>
-								<td></td>
-								<td>
-									<?php echo $task['task_timePassed']; ?>
-								</td>
-							</tr>
-						<?php } } ?>
-					</table>
+					<div class="table-responsive">
+						<table class="table table-striped table-hover table-nomargin">
+							<?php foreach($project['task'] as $task){
+									if(!$task['task_isClosed']){ ?>
+								<tr>
+									<td width="5%">
+										<input type="checkbox" class="taskCB">
+									</td>
+									<td class="task-title" id="<?php echo $task['task_id']; ?>" width="70%">
+										<?php echo $task['task_title'];?>
+									</td>
+									<td width="10%" disabled>
+										<button class="btn btn-primary btn-xs timerPlay" id="<?php echo $task['task_id'];?>">
+											<span class="glyphicon glyphicon-play"></span>
+										</button>
+									</td>
+									<td width="10%" hidden="">
+										<button class="btn btn-primary btn-xs timerPause" id="<?php echo $task['task_id'];?>">
+											<span class="glyphicon glyphicon-pause"></span>
+										</button>
+									</td>
+									<td id="timer" width="15%">
+										<p class="timeDB"><?php echo $task['task_timePassed']; ?></p>
+										<p class="timeTimer" hidden=""><span class="sw_h<?php echo $task['task_id']; ?>">00</span>:<span class="sw_m<?php echo $task['task_id']; ?>">00</span>:<span class="sw_s<?php echo $task['task_id']; ?>">00</span></p>
+									</td>
+								</tr>
+							<?php } } ?>
+							<form class="newTask" name="<?php echo $project['project_id'];?>">
+								<tr>
+									<td colspan="3">
+										<input type="text" class="form-control newTaskTitle<?php echo $project['project_id'];?>" placeholder="Nouvelle tâche" maxlength="100">
+									</td>
+									<td>
+										<button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></button>
+									</td>
+								</tr>
+							</form>
+							<?php foreach($project['task'] as $task){ 
+									if($task['task_isClosed']){ ?>
+								<tr>
+									<td id="<?php echo $task['task_id']; ?>">
+										<input type="checkbox" class="taskCBClosed" checked="">
+									</td>
+									<td class="task-title" id="<?php echo $task['task_id']; ?>">
+										<?php echo " ".$task['task_title']; ?>
+									</td>
+									<td></td>
+									<td>
+										<?php echo $task['task_timePassed']; ?>
+									</td>
+								</tr>
+							<?php } } ?>
+						</table>
+					</div>
 				</div>
 				<div class="panel-footer">
 					<p>Total du temps passé: ...</p>

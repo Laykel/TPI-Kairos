@@ -5,10 +5,17 @@
 	</div>
 <?php }
 
-if(isset($_GET['errorPswd'])){ ?>				
+if(isset($_GET['pswdNoMatch'])){ ?>				
 	<div class="alert alert-dismissible alert-warning">
 		<button type="button" class="close" data-dismiss="alert">&times;</button>
 		<strong>Erreur!</strong> Les deux mots de passe ne sont pas les mêmes.
+	</div>
+<?php }
+
+if(isset($_GET['errorPswd'])){ ?>				
+	<div class="alert alert-dismissible alert-warning">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<strong>Erreur!</strong> Veuillez utiliser un mot de passe fort. Il doit comprendre au moins 6 caractères, une majuscule, une minuscule et un chiffre.
 	</div>
 <?php }
 
@@ -16,6 +23,13 @@ if(isset($_GET['errorEmpty'])){ ?>
 	<div class="alert alert-dismissible alert-warning">
 		<button type="button" class="close" data-dismiss="alert">&times;</button>
 		<strong>Erreur!</strong> Veuillez remplir tous les champs.
+	</div>
+<?php }
+
+if(isset($_GET['allEmpty'])){ ?>
+	<div class="alert alert-dismissible alert-warning">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<strong>Erreur!</strong> Veuillez remplir au moins un champ.
 	</div>
 <?php }
 

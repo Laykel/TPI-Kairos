@@ -25,13 +25,22 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 		$qstring .= "&errorEmpty";
 	}
 	if($fPassword != $fPassword2){
-		$qstring .= "&errorPswd";
+		$qstring .= "&pswdNoMatch";
 	}
 	if($pseudoAvailable){
 		$qstring .= "&existingPseudo";
 	}
 	if($mailAvailable){
 		$qstring .= "&existingEmail";
+	}
+	if(strlen($fPassword) < 6){
+		$qstring .= "&errorPswd";
+	}
+	elseif(!preg_match("~[0-9]~", $fPassword)){
+		$qstring .= "&errorPswd";
+	}
+	elseif($fPassword == strtoupper($fPassword) || $fPassword == strtolower($fPassword)){
+		$qstring .= "&errorPswd";
 	}
 	//-------- End of data validation --------//
 

@@ -4,8 +4,8 @@
 			<div class="panel-heading">
 				<h3 class="panel-title">Administration des utilisateurs du site</h3>
 			</div>
-			<div class="panel-body">
-				<table class="table table-striped table-hover">
+			<div class="panel-body panel-no-padding table-responsive">
+				<table class="table table-striped table-hover table-nomargin">
 					<thead>
 						<tr>
 							<th>User ID</th>
