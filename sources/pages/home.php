@@ -18,7 +18,7 @@
 			<div class="col-sm-2">
 				<button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></button>
 			</div>-->
-			<table class="table table-borderless table-nomargin">
+			<table class="table table-borderless table-smallmargin">
 				<tr>
 					<td width="20%">
 						<button type="button" class="btn btn-primary" id="addProject">
@@ -26,7 +26,7 @@
 						</button>
 					</td>
 					<td id="projectInput" width="70%" hidden>
-						<input type="text" class="form-control" id="projectTitle" placeholder="Nouveau projet">
+						<input type="text" class="form-control" id="projectTitle" placeholder="Nouveau projet" maxlength="100">
 					</td>
 					<td id="projectButton" width="10%" hidden>
 						<button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></button>
@@ -39,9 +39,7 @@
 	<!-- Projects panels with tasks, timers -->
 	<div class="col-sm-7">
 		<?php foreach($projectTab as $project){ ?>
-			<div class="panel 
-			<?php if($project['project_plannedEnd'] < $datetime && $project['project_plannedEnd'] != '') echo "panel-danger";
-				  else echo "panel-primary";?>">
+			<div class="panel <?php if($project['project_plannedEnd'] < $datetime && $project['project_plannedEnd'] != '') echo 'panel-danger'; else echo 'panel-primary';?>">
 				<div class="panel-heading project-title" id="<?php echo $project['project_id'];?>">
 					<h3 class="panel-title">
 						<?php echo $project['project_title'];?>
@@ -81,7 +79,7 @@
 									<td colspan="3">
 										<input type="text" class="form-control newTaskTitle<?php echo $project['project_id'];?>" placeholder="Nouvelle tâche" maxlength="100">
 									</td>
-									<td>
+									<td width="15%">
 										<button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></button>
 									</td>
 								</tr>
@@ -89,15 +87,15 @@
 							<?php foreach($project['task'] as $task){ 
 									if($task['task_isClosed']){ ?>
 								<tr>
-									<td id="<?php echo $task['task_id']; ?>">
+									<td id="<?php echo $task['task_id']; ?>" width="5%">
 										<input type="checkbox" class="taskCBClosed" checked="">
 									</td>
-									<td class="task-title" id="<?php echo $task['task_id']; ?>">
-										<?php echo " ".$task['task_title']; ?>
+									<td class="task-title" id="<?php echo $task['task_id']; ?>" width="70%">
+										<p><?php echo " ".$task['task_title']; ?></p>
 									</td>
 									<td></td>
-									<td>
-										<?php echo $task['task_timePassed']; ?>
+									<td width="15%">
+										<p><?php echo $task['task_timePassed']; ?></p>
 									</td>
 								</tr>
 							<?php } } ?>
@@ -119,7 +117,7 @@
     <!-- Project and task info panel -->
     <div id="details-top"></div>
 	<div class="col-sm-5">
-		<div class="panel panel-info fixed" id="panel-details"></div>
+		<div class="panel panel-info" id="panel-details"></div>
 	</div>
 </div>
 

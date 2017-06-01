@@ -21,15 +21,15 @@
 					</div>
 					<div class="form-group">
 						<label for="email">Votre adresse e-mail</label>
-						<input type="email" class="form-control" id="email" name="fEmail" placeholder="exemple@test.ch" maxlength="254"></textarea>
+						<input type="email" class="form-control" id="email" name="fEmail" placeholder="exemple@test.ch" maxlength="254">
 					</div>
 					<div class="form-group">
 						<label for="pswd">Votre mot de passe</label>
-						<input type="password" class="form-control" id="pswd" name="fPassword" maxlength="200">
+						<input type="password" class="form-control" id="pswd" name="fPassword" maxlength="500">
 					</div>
 					<div class="form-group">
 						<label for="pswd2">Confirmez votre mot de passe</label>
-						<input type="password" class="form-control" id="pswd2" name="fPassword2" maxlength="200">
+						<input type="password" class="form-control" id="pswd2" name="fPassword2" maxlength="500">
 					</div>
 					<button type="submit" class="btn btn-primary pull-right">S'inscrire</button>
 				</form>

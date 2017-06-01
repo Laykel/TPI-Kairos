@@ -7,17 +7,18 @@ $projectReq = "SELECT project_id, project_title, project_description, project_da
 			   FROM project WHERE project_id=".$_GET['id'];
 $projectRes = dbRequest($projectReq, "select");
 $line = $projectRes->fetch();
+$journal = true;
 ?>
 
 <div class="panel-heading">
 	<h3 class="panel-title">Détails du projet</h3>
 </div>
 <div class="panel-body">
-	<form method="post" action="">
+	<form method="post" action="" id="form-details">
 		<input type="hidden" name="fProject" value="<?php echo $line['project_id'];?>">
 		<div class="form-group">
 			<label for="titre">Titre du projet</label>
-			<input type="text" class="form-control" id="titre" name="fTitle" maxlength="45" value="<?php echo $line['project_title'];?>">
+			<input type="text" class="form-control" id="titre" name="fTitle" maxlength="100" value="<?php echo $line['project_title'];?>">
 		</div>
 		<div class="form-group">
 			<label for="desc">Description</label>
@@ -41,7 +42,7 @@ $line = $projectRes->fetch();
 		</div>
 		<?php if(!$line['project_isClosed']){ ?>
 			<button type="submit" class="btn btn-info pull-right">Soumettre</button>
-		<?php } ?>
+		<?php $journal = false; } ?>
 	</form> 
 </div>
 
@@ -56,3 +57,9 @@ $line = $projectRes->fetch();
 		<button class="btn btn-default" id="reopen">Rouvrir le projet</button>
 	<?php } ?>
 </div>
+
+<?php
+if($journal) echo '<script type="text/javascript">
+	$("#form-details :input").prop("disabled", true);
+</script>';
+?>

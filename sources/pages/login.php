@@ -21,7 +21,7 @@
 					</div>
 					<div class="form-group">
 						<label for="pswd">Votre mot de passe</label>
-						<input type="password" class="form-control" id="pswd" name="fPassword" maxlength="200">
+						<input type="password" class="form-control" id="pswd" name="fPassword" maxlength="500">
 					</div>
 					<button type="submit" class="btn btn-primary pull-right">Se connecter</button>
 				</form>

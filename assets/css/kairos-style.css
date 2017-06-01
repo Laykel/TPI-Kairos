@@ -1,10 +1,7 @@
 body{
 	padding-top: 60px;
-}
-
-body {
-  overflow-y:auto !important;
-  padding-right: 0px !important;
+	overflow-y:auto !important;
+	padding-right: 0px !important;
 }
 
 .navbar{
@@ -61,6 +58,10 @@ textarea{
     border: none;
 }
 
+.table-smallmargin {
+    margin-bottom: 8px;
+}
+
 .table-nomargin {
-    margin-bottom: 10px;
+    margin-bottom: 0px;
 }

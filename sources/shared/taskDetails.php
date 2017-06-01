@@ -13,6 +13,8 @@ $line = $taskRes->fetch();
 $commentReq = "SELECT comment_content, comment_date FROM comment
 			   WHERE task_fk=".$line['task_id'];
 $commentRes = dbRequest($commentReq, "select");
+
+$journal = true;
 ?>
 
 <div class="panel-heading">
@@ -20,11 +22,11 @@ $commentRes = dbRequest($commentReq, "select");
 </div>
 <div class="panel-body">
 	<u><small>Appartient au projet: <?php echo $line['project_title'];?></small></u><br><br>
-	<form method="post" action="">
+	<form method="post" action="" id="form-details">
 		<input type="hidden" name="fTask" value="<?php echo $line['task_id'];?>">
 		<div class="form-group">
 			<label for="titre">Titre de la tâche</label>
-			<input type="text" class="form-control" id="titre" name="fTitle" maxlength="45" value="<?php echo $line['task_title'];?>">
+			<input type="text" class="form-control" id="titre" name="fTitle" maxlength="100" value="<?php echo $line['task_title'];?>">
 		</div>
 		<div class="form-group">
 			<label for="desc">Description</label>
@@ -54,7 +56,7 @@ $commentRes = dbRequest($commentReq, "select");
 			<div class="form-group">
 				<button type="submit" class="btn btn-info pull-right">Soumettre</button>
 			</div>
-		<?php } ?>
+		<?php $journal = false; } ?>
 	</form>
 	<table class="table table-striped">
 		<thead>
@@ -78,3 +80,9 @@ $commentRes = dbRequest($commentReq, "select");
 	  </button>
 	<?php } ?>
 </div>
+
+<?php
+if($journal) echo '<script type="text/javascript">
+	$("#form-details :input").prop("disabled", true);
+</script>';
+?>
