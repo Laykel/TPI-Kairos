@@ -7,17 +7,6 @@
 		<!-- Fin des messages d'alerte -->
 
 		<form id="newProject">
-			<!--<div class="col-sm-4">
-				<button type="button" class="btn btn-primary" id="addProject">
-					<span class="glyphicon glyphicon-plus"></span> Nouveau projet
-				</button>
-			</div>
-			<div class="col-sm-6">
-				<input type="text" class="form-control" id="projectTitle" placeholder="Nouveau projet">
-			</div>
-			<div class="col-sm-2">
-				<button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></button>
-			</div>-->
 			<table class="table table-borderless table-smallmargin">
 				<tr>
 					<td width="20%">
@@ -28,7 +17,7 @@
 					<td id="projectInput" width="70%" hidden>
 						<input type="text" class="form-control" id="projectTitle" placeholder="Nouveau projet" maxlength="100">
 					</td>
-					<td id="projectButton" width="10%" hidden>
+					<td id="projectButton" class="<?php echo $user_id;?>" width="10%" hidden>
 						<button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></button>
 					</td>
 				</tr>
@@ -175,11 +164,12 @@
 	$('#newProject').on('submit', function(e){
 		e.preventDefault();
 		var title = $('#projectTitle').val();
+		var user = $('#projectButton').prop('class');
 
 		var request = $.ajax({
 			url: 'sources/shared/update.php',
 			type: 'post',
-			data: {"addProject": 1, "title": title}
+			data: {"addProject": title, "user": user}
 		});
 
 		request.done(function(){
@@ -236,6 +226,8 @@
 
 		//Get the task's id
 		var id = $(this).prop('id');
+
+		//Get the timer's value to put it in the DB
 		var time = $('.sw_h'+id).html() + ':' + $('.sw_m'+id).html() + ':' + $('.sw_s'+id).html();
 
 		//Update the DB with the new time

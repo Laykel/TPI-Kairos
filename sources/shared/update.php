@@ -42,7 +42,7 @@ if(isset($addProject)){
 
 	//New project request
 	$createReq = "INSERT INTO project(project_title, project_dateCreation, project_isClosed, user_fk)
-				  VALUES('".$title."', '".$datetime."', 0, ".$_SESSION['user_id'].")";
+				  VALUES('".$addProject."', '".$datetime."', 0, ".$user.")";
 	dbRequest($createReq, "insert");
 }
 
