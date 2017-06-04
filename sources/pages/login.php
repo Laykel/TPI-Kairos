@@ -42,3 +42,14 @@
  	cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
  	proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 </div>
+
+<script type="text/javascript">
+window.onload = function(){
+	var pseudo = sessionStorage.getItem('pseudo');
+	if(pseudo != null) $('#pseudo').val(pseudo);
+}
+
+window.onbeforeunload = function(){
+	sessionStorage.setItem('pseudo', $('#pseudo').val());
+}
+</script>

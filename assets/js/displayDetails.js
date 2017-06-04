@@ -23,4 +23,6 @@ $( document ).ready(function() {
 	    }, 500);
 	    return false;
 	});
+
+	$('.panel-title:first').trigger('click');
 });

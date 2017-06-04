@@ -25,9 +25,11 @@
 		</form>
 	</div>
 
-	<!-- Projects panels with tasks, timers -->
+	<!-- Project panels with tasks, timers -->
 	<div class="col-sm-7">
-		<?php foreach($projectTab as $project){ ?>
+		<?php foreach($projectTab as $project){ 
+				$totalTime = "00:00:00";
+		?>
 			<div class="panel <?php if($project['project_plannedEnd'] < $datetime && $project['project_plannedEnd'] != '') echo 'panel-danger'; else echo 'panel-primary';?>">
 				<div class="panel-heading project-title" id="<?php echo $project['project_id'];?>">
 					<h3 class="panel-title">
@@ -39,13 +41,17 @@
 					<div class="table-responsive">
 						<table class="table table-striped table-hover table-nomargin">
 							<?php foreach($project['task'] as $task){
-									if(!$task['task_isClosed']){ ?>
+									$secs = strtotime($totalTime) - strtotime("00:00:00");
+									$totalTime = date("H:i:s", strtotime($task['task_timePassed']) + $secs);
+									if(!$task['task_isClosed']){ 
+							?>
 								<tr>
 									<td width="5%">
 										<input type="checkbox" class="taskCB">
 									</td>
 									<td class="task-title" id="<?php echo $task['task_id']; ?>" width="70%">
 										<?php echo $task['task_title'];?>
+										<?php if($task['task_plannedEnd'] < $datetime && $task['task_plannedEnd'] != '') echo "<span class='glyphicon glyphicon-time pull-right'></span>";?>
 									</td>
 									<td width="10%" disabled>
 										<button class="btn btn-primary btn-xs timerPlay" id="<?php echo $task['task_id'];?>">
@@ -92,7 +98,7 @@
 					</div>
 				</div>
 				<div class="panel-footer">
-					<p>Total du temps passé: ...</p>
+				<p>Total du temps passé sur ce projet: <?php echo $totalTime;?></p>
 				</div>
 			</div>
 		<?php } ?>
@@ -138,7 +144,8 @@
 
 <script type="text/javascript" src="<?php echo ROOT;?>/assets/js/dbUpdate.js"></script>
 <script type="text/javascript">
-
+$( document ).ready(function() {
+	
 	$('#addProject').on('click', function(e){
 		$('#projectInput').toggle();
 		$('#projectButton').toggle();
@@ -156,7 +163,6 @@
 		});
 
 		request.done(function(){
-			$('.taskTitle'+projectId).val('');
 			window.location.reload();
 		});
 	});
@@ -250,4 +256,5 @@
 			$('.sw_s'+id).prop('id', '');
 		});
 	});
+});
 </script>

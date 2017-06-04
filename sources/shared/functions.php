@@ -63,7 +63,7 @@ function getProjects($user_id, $isClosed, $projectTab){
 	$projectRes = dbRequest($projectReq, "select");
 
 	while($line = $projectRes->fetch()){
-		$taskReq = "SELECT task_id, task_title, task_timePassed, task_isClosed FROM task
+		$taskReq = "SELECT task_id, task_title, task_timePassed, task_plannedEnd, task_isClosed FROM task
 					WHERE project_fk = ".$line['project_id']."
 					ORDER BY task_plannedEnd IS NULL, task_plannedEnd";
 		$taskRes = dbRequest($taskReq, "select");
@@ -76,6 +76,7 @@ function getProjects($user_id, $isClosed, $projectTab){
 					"task_id" => $taskLine['task_id'],
 					"task_title" => $taskLine['task_title'],
 					"task_timePassed" => $taskLine['task_timePassed'],
+					"task_plannedEnd" => $taskLine['task_plannedEnd'],
 					"task_isClosed" => $taskLine['task_isClosed'],
 			);
 		}

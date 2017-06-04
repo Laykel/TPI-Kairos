@@ -40,7 +40,15 @@
 </div>
 
 <script type="text/javascript">
-$( document ).ready(function() {
-    console.log( 'lol' );
-});
+window.onload = function(){
+	var email = sessionStorage.getItem('email');
+	if(email != null) $('#email').val(email);
+	var pseudo = sessionStorage.getItem('pseudo');
+	if(pseudo != null) $('#pseudo').val(pseudo);
+}
+
+window.onbeforeunload = function(){
+	sessionStorage.setItem('email', $('#email').val());
+	sessionStorage.setItem('pseudo', $('#pseudo').val());
+}
 </script>
