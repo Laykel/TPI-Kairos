@@ -1,10 +1,11 @@
 <?php
-//--------------------------
+//--------------------------------------------------
 //Filename: adminScript.php
 //Creation date: 11.05.2017
 //Author: Luc Wachter
-//Function: The script part of the admin page
-//--------------------------
+//Function: The script part of the admin page:
+//			gets user data, restricts access to page.
+//--------------------------------------------------
 
 $title = "Kairos - Administration";
 

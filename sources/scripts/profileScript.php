@@ -1,10 +1,11 @@
 <?php
-//--------------------------
+//----------------------------------------------
 //Filename: profileScript.php
 //Creation date: 10.05.2017
 //Author: Luc Wachter
-//Function: The script part of the profile page
-//--------------------------
+//Function: The script part of the profile page:
+//			checks data and changes it in DB.
+//----------------------------------------------
 
 $title = "Kairos - Profil";
 

@@ -1,3 +1,9 @@
+<!--
+Filename: alerts.php
+Description: This file contains every flash message used across
+every page. It is included where needed and uses the querystring.
+-->
+
 <?php if(isset($_GET['success'])){ ?>				
 	<div class="alert alert-dismissible alert-success">
 		<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -43,7 +49,7 @@ if(isset($_GET['titleEmpty'])){ ?>
 if(isset($_GET['errorDate'])){ ?>
 	<div class="alert alert-dismissible alert-warning">
 		<button type="button" class="close" data-dismiss="alert">&times;</button>
-		<strong>Erreur!</strong> Les dates doivent avoir le format suivant: '31-05-2017 12:15:25'.
+		<strong>Erreur!</strong> Les dates doivent avoir le format suivant: '2017-05-30 12:15:25'.
 	</div>
 <?php }
 
@@ -58,6 +64,13 @@ if(isset($_GET['existingEmail'])){ ?>
 	<div class="alert alert-dismissible alert-warning">
 		<button type="button" class="close" data-dismiss="alert">&times;</button>
 		<strong>Erreur!</strong> Il existe déjà un compte avec cette adresse e-mail.
+	</div>
+<?php }
+
+if(isset($_GET['forgot'])){ ?>
+	<div class="alert alert-dismissible alert-warning">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<p><strong>Attention!</strong> Si vous avez entré la bonne adresse e-mail, un mail vous sera envoyé dans la prochaine minute, contenant un nouveau mot de passe.</p>
 	</div>
 <?php }
 

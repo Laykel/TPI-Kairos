@@ -1,3 +1,8 @@
+<!-- 
+Filename: admin.php
+Description: Admin page: Full access to all user data, links to their pages.
+-->
+
 <div class="row">
 	<div class="col-sm-8 col-sm-offset-2">		  
 		<div class="panel panel-primary">
@@ -5,6 +10,8 @@
 				<h3 class="panel-title">Administration des utilisateurs du site</h3>
 			</div>
 			<div class="panel-body panel-no-padding table-responsive">
+
+				<!-- Table containing all users' data -->
 				<table class="table table-striped table-hover table-nomargin">
 					<thead>
 						<tr>
@@ -16,6 +23,8 @@
 						</tr>
 					</thead>
 					<tbody>
+					
+						<!-- Display each user's data, links to their projects, to change their data... -->
 						<?php while($line = $userRes->fetch()){?>
 							<tr>
 								<td><?php echo $line['user_id'];?></td>

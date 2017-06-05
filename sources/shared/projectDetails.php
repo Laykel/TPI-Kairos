@@ -1,4 +1,11 @@
 <?php 
+//----------------------------------------------------------
+//Filename: projectDetails.php
+//Author: Luc Wachter
+//Function: This contains the details panel for the projects
+//			used in both home and journal pages.
+//----------------------------------------------------------
+
 include("functions.php");
 include("modal.html");
 
@@ -13,6 +20,8 @@ $journal = true;
 <div class="panel-heading">
 	<h3 class="panel-title">Détails du projet</h3>
 </div>
+
+<!-- Display the details and the form to modify them -->
 <div class="panel-body">
 	<form method="post" action="" id="form-details">
 		<input type="hidden" name="fProject" value="<?php echo $line['project_id'];?>">
@@ -36,13 +45,14 @@ $journal = true;
 			<label for="plannedEnd">Date de fin prévue</label>
 			<input type="datetime" class="form-control" id="plannedEnd" name="fPlannedEnd" value="<?php echo $line['project_plannedEnd'];?>">
 		</div>
-		<div class="form-group">
-			<label for="dateEnd">Date de fermeture</label>
-			<input type="datetime" class="form-control" id="dateEnd" name="fDateEnd" disabled="" value="<?php echo $line['project_dateClosed'];?>">
-		</div>
-		<?php if(!$line['project_isClosed']){ ?>
+		<?php if($line['project_isClosed']){ ?>
+			<div class="form-group">
+				<label for="dateEnd">Date de fermeture</label>
+				<input type="datetime" class="form-control" id="dateEnd" name="fDateEnd" disabled="" value="<?php echo $line['project_dateClosed'];?>">
+			</div>
+		<?php } else{ ?>
 			<button type="submit" class="btn btn-info pull-right">Soumettre</button>
-		<?php $journal = false; } ?>
+		<?php } ?>
 	</form> 
 </div>
 
@@ -58,8 +68,9 @@ $journal = true;
 	<?php } ?>
 </div>
 
-<?php
-if($journal) echo '<script type="text/javascript">
-	$("#form-details :input").prop("disabled", true);
-</script>';
-?>
+<!-- If we're on journal page, disable all inputs -->
+<?php if($line['project_isClosed']){ ?>
+	<script type="text/javascript">
+		$("#form-details :input").prop("disabled", true);
+	</script>
+<?php } ?>

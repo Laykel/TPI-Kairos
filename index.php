@@ -1,10 +1,10 @@
 <?php
-//--------------------------
+//---------------------------------------------------------
 //Filename: index.php
 //Creation date: 09.05.2017
 //Author: Luc Wachter
 //Function: Main page, includes scripts and secondary pages
-//--------------------------
+//---------------------------------------------------------
 
 session_start();
 //Definition of the path to the document root

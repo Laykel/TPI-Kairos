@@ -1,12 +1,17 @@
+<!-- 
+Filename: register.php
+Description: Register page: form.
+-->
+
 <div class="row"><h1 class="page-title">Inscription</h1></div>
 
 <div class="row">
 	<div class="col-sm-6 col-sm-offset-3">
 
-	    <!-- Messages d'alerte -->
+	    <!-- Alert messages -->
 	    <?php include(ROOT."/sources/shared/alerts.php"); ?>
-	    <!-- Fin des messages d'alerte -->
 
+	    <!-- Panel with registration form -->
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h3 class="panel-title">Créez votre compte</h3>
@@ -40,6 +45,7 @@
 </div>
 
 <script type="text/javascript">
+//Set fields to their values before the page reloaded
 window.onload = function(){
 	var email = sessionStorage.getItem('email');
 	if(email != null) $('#email').val(email);
@@ -47,6 +53,7 @@ window.onload = function(){
 	if(pseudo != null) $('#pseudo').val(pseudo);
 }
 
+//Keep the fields' values in memory before reload
 window.onbeforeunload = function(){
 	sessionStorage.setItem('email', $('#email').val());
 	sessionStorage.setItem('pseudo', $('#pseudo').val());

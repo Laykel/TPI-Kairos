@@ -1,10 +1,11 @@
 <?php
-//--------------------------
+//---------------------------------------------
 //Filename: loginScript.php
 //Creation date: 09.05.2017
 //Author: Luc Wachter
-//Function: The script part of the login page
-//--------------------------
+//Function: The script part of the login page:
+//			checks data and log user in.
+//---------------------------------------------
 
 $title = "Kairos - Connexion";
 

@@ -1,9 +1,16 @@
 <?php 
+//--------------------------------------------------------
+//Filename: taskDetails.php
+//Author: Luc Wachter
+//Function: This contains the details panel for the tasks
+//			used in both home and journal pages.
+//--------------------------------------------------------
+
 include("functions.php");
 include("modal.html");
 
 //Get all task data
-$taskReq = "SELECT project_title, project_isClosed, task_id, task_title, task_description, task_timePassed, task_dateCreation, task_plannedBeginning, task_plannedEnd, task_dateClosed
+$taskReq = "SELECT project_title, project_isClosed, task_id, task_title, task_description, task_timePassed, task_dateCreation, task_plannedBeginning, task_plannedEnd, task_isClosed, task_dateClosed
 			FROM task INNER JOIN project ON project_fk=project_id
 			WHERE task_id=".$_GET['id'];
 $taskRes = dbRequest($taskReq, "select");
@@ -13,13 +20,13 @@ $line = $taskRes->fetch();
 $commentReq = "SELECT comment_content, comment_date FROM comment
 			   WHERE task_fk=".$line['task_id'];
 $commentRes = dbRequest($commentReq, "select");
-
-$journal = true;
 ?>
 
 <div class="panel-heading">
 	<h3 class="panel-title">Détails de la tâche</h3>
 </div>
+
+<!-- Display the details and the form to modify them -->
 <div class="panel-body">
 	<u><small>Appartient au projet: <?php echo $line['project_title'];?></small></u><br><br>
 	<form method="post" action="" id="form-details">
@@ -42,47 +49,55 @@ $journal = true;
 		</div>
 		<div class="form-group">
 			<label for="timePassed">Temps passé sur la tâche</label>
-			<input type="time" class="form-control" id="timePassed" name="fTimePassed" value="<?php echo $line['task_timePassed'];?>">
+			<input type="text" class="form-control" id="timePassed" name="fTimePassed" value="<?php echo $line['task_timePassed'];?>">
 		</div>
 		<div class="form-group">
 			<label for="plannedEnd">Date de fin prévue</label>
 			<input type="datetime" class="form-control" id="plannedEnd" name="fPlannedEnd" value="<?php echo $line['task_plannedEnd'];?>">
 		</div>
-		<div class="form-group">
-			<label for="dateEnd">Date de fermeture</label>
-			<input type="datetime" class="form-control" id="dateEnd" name="fDateEnd" disabled="" value="<?php echo $line['task_dateClosed'];?>">
-		</div>
-		<?php if(!$line['project_isClosed']){ ?>
+		<?php if($line['task_isClosed']){ ?>
+			<div class="form-group">
+				<label for="dateEnd">Date de fermeture</label>
+				<input type="datetime" class="form-control" id="dateEnd" name="fDateEnd" disabled="" value="<?php echo $line['task_dateClosed'];?>">
+			</div>
+		<?php } else{ ?>
 			<div class="form-group">
 				<button type="submit" class="btn btn-info pull-right">Soumettre</button>
 			</div>
-		<?php $journal = false; } ?>
+		<?php } ?>
 	</form>
-	<table class="table table-striped">
-		<thead>
-			<th>Date</th>
-			<th>Commentaire</th>
-		</thead>
-		<tbody>
-			<?php while($commentLine = $commentRes->fetch()){ ?>
-				<tr>
-					<td><?php echo $commentLine['comment_date'];?></td>
-					<td><?php echo $commentLine['comment_content'];?></td>
-				</tr>
-			<?php } ?>
-		</tbody>
-	</table>
-</div>
-<div class="panel-footer" id="<?php echo $line['task_id'];?>">
-	<?php if(!$line['project_isClosed']){ ?>
-	  <button class="btn btn-danger" id="removeTask">
-	  	<span class="glyphicon glyphicon-trash"></span>
-	  </button>
+
+	<!-- Comments table -->
+	<?php if($cLine = $commentRes->fetch()){ ?>
+		<table class="table table-striped">
+			<thead>
+				<th>Date</th>
+				<th>Commentaire</th>
+			</thead>
+			<tbody>
+				<?php while($commentLine = $commentRes->fetch()){ ?>
+					<tr>
+						<td><?php echo $commentLine['comment_date'];?></td>
+						<td><?php echo $commentLine['comment_content'];?></td>
+					</tr>
+				<?php } ?>
+			</tbody>
+		</table>
 	<?php } ?>
 </div>
 
-<?php
-if($journal) echo '<script type="text/javascript">
-	$("#form-details :input").prop("disabled", true);
-</script>';
-?>
+<!-- Panel-footer: remove button -->
+<?php if(!$line['project_isClosed']){ ?>
+	<div class="panel-footer" id="<?php echo $line['task_id'];?>">
+	  <button class="btn btn-danger" id="removeTask">
+	  	<span class="glyphicon glyphicon-trash"></span>
+	  </button>
+	</div>
+<?php } ?>
+
+<!-- If we're on journal page, disable all inputs -->
+<?php if($line['project_isClosed']){ ?>
+	<script type="text/javascript">
+		$("#form-details :input").prop("disabled", true);
+	</script>
+<?php } ?>

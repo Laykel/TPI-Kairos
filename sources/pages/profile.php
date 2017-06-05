@@ -1,3 +1,8 @@
+<!-- 
+Filename: profile.php
+Description: Profile page: update form, remove account, current data.
+-->
+
 <div class="row">
   <div class="col-sm-7">
 

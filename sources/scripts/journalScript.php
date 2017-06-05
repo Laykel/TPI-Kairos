@@ -1,10 +1,11 @@
 <?php
-//--------------------------
+//----------------------------------------------
 //Filename: homeScript.php
 //Creation date: 11.05.2017
 //Author: Luc Wachter
-//Function: The script part of the journal page
-//--------------------------
+//Function: The script part of the journal page:
+//			gets projects and tasks data.
+//----------------------------------------------
 
 $title = "Kairos - Projets";
 
@@ -17,13 +18,7 @@ else{
 	$user_id = $_SESSION['user_id'];
 }
 
+//Get data from DB
 $projects = array();
 $projectTab = getProjects($user_id, 1, $projects);
-
-if($_SERVER['REQUEST_METHOD'] == 'POST'){
-	//Secure data coming from the form
-	$post = secureArray($_POST);
-	//Extract the variables from $_POST
-	extract($post);
-}
 ?>

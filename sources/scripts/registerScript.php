@@ -1,10 +1,11 @@
 <?php
-//--------------------------
+//-----------------------------------------------
 //Filename: registerScript.php
 //Creation date: 09.05.2017
 //Author: Luc Wachter
-//Function: The script part of the register page
-//--------------------------
+//Function: The script part of the register page: 
+//			checks data and adds user to DB.
+//-----------------------------------------------
 
 $title = "Kairos - Inscription";
 
