@@ -41,7 +41,11 @@ Description: Projects page: Projects and tasks, timers, update details.
 					<div class="panel-heading project-title" id="<?php echo $project['project_id'];?>">
 						<h3 class="panel-title">
 							<?php echo $project['project_title'];?>
-							<span class="glyphicon glyphicon-info-sign pull-right" data-toggle="tooltip" title="Cliquez sur ce titre pour avoir accès aux détails de ce projet"></span>
+							<?php if($project['project_plannedEnd'] < $datetime && $project['project_plannedEnd'] != ''){ ?>
+								<span class="glyphicon glyphicon-info-sign pull-right" data-toggle="tooltip" title="Ce projet a dépassé son délai estimé!"></span>
+							<?php } else{ ?>
+								<span class="glyphicon glyphicon-info-sign pull-right" data-toggle="tooltip" title="Cliquez sur ce titre pour avoir accès aux détails de ce projet"></span>
+							<?php } ?>
 						</h3>
 					</div>
 					<div class="panel-body panel-no-padding">
