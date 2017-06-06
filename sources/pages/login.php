@@ -58,28 +58,23 @@ Description: Login page: form, forgotten password mechanism.
 		</div>
 	</div>
 </div>
+<hr>
 
 <!-- Site description -->
-<hr>
 <div class="row">
-	<div class="col-sm-6">
-		<h2>Description du site</h2>
+	<div class="col-sm-6 col-sm-offset-3">
 
+		<h2>Description du site</h2>
 		<h3>Kairos projects</h3>
 		<p>Kairos est un site de gestion de tâche, avec un accent sur la gestion du temps.</p>
-		<img src="<?php echo ROOT;?>/assets/img/kairos.png" width="550px" alt="Kairos">
-		<br><br>
+		<br>
 		<p>Il est souvent important de savoir combien de temps on a passé sur tel ou tel élément d'un projet. <br>
 		Ce serait superbe de pouvoir planifier ses tâches et d'avoir en même temps une sorte de journal de travail automatique.</p>
-		<img src="<?php echo ROOT;?>/assets/img/timers.png" width="550px" alt="Timers">
-		<br><br>
-	</div>
-	<div class="col-sm-6">
-	<br><br><br>
+		<br>
+
 		<h3>La structure</h3>
 		<p>Kairos est construit pour être compris par tout le monde. Vous pouvez créer des projets, et dans ces projets, vous pouvez créer des tâches.</p>
-		<img src="<?php echo ROOT;?>/assets/img/projectPanel.png" width="550px" alt="Project panel">
-		<br><br>
+		<br>
 		<p>Chaque projet et chaque tâche a un certain nombre de paramètres supplémentaires qu'on peut remplir.</p>
 		<ul>
 			<li>Une description en plus du titre</li>
@@ -88,7 +83,6 @@ Description: Login page: form, forgotten password mechanism.
 			<li>Dans le cas des tâches, le temps total passé dessus</li>
 			<li>Dans le cas des tâches, les commentaires entrés à chaque début de timer</li>
 		</ul>
-		<img src="<?php echo ROOT;?>/assets/img/detailsPanel.png" height="550px" alt="Details panel">
  	</div>
 </div>
 
