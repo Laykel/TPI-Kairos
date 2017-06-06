@@ -20,6 +20,14 @@ $line = $taskRes->fetch();
 $commentReq = "SELECT comment_content, comment_date FROM comment
 			   WHERE task_fk=".$line['task_id'];
 $commentRes = dbRequest($commentReq, "select");
+
+$commentTab = array();
+while($commentLine = $commentRes->fetch()){
+	$commentTab[] = array(
+		"date" => $commentLine['comment_date'],
+		"content" => $commentLine['comment_content']
+	);
+}
 ?>
 
 <div class="panel-heading">
@@ -41,11 +49,11 @@ $commentRes = dbRequest($commentReq, "select");
 		</div>
 		<div class="form-group">
 			<label for="dateCreation">Date de création</label>
-			<input type="datetime" class="form-control" id="dateCreation" name="fDateCreation" disabled="" value="<?php echo $line['task_dateCreation'];?>">
+			<input type="text" class="form-control" id="dateCreation" name="fDateCreation" disabled="" value="<?php echo $line['task_dateCreation'];?>">
 		</div>
 		<div class="form-group">
 			<label for="dateStart">Date de début prévue</label>
-			<input type="datetime" class="form-control" id="dateStart" name="fDateStart" value="<?php echo $line['task_plannedBeginning'];?>">
+			<input type="text" class="form-control" id="dateStart" name="fDateStart" value="<?php echo $line['task_plannedBeginning'];?>">
 		</div>
 		<div class="form-group">
 			<label for="timePassed">Temps passé sur la tâche</label>
@@ -53,12 +61,12 @@ $commentRes = dbRequest($commentReq, "select");
 		</div>
 		<div class="form-group">
 			<label for="plannedEnd">Date de fin prévue</label>
-			<input type="datetime" class="form-control" id="plannedEnd" name="fPlannedEnd" value="<?php echo $line['task_plannedEnd'];?>">
+			<input type="text" class="form-control" id="plannedEnd" name="fPlannedEnd" value="<?php echo $line['task_plannedEnd'];?>">
 		</div>
 		<?php if($line['task_isClosed']){ ?>
 			<div class="form-group">
 				<label for="dateEnd">Date de fermeture</label>
-				<input type="datetime" class="form-control" id="dateEnd" name="fDateEnd" disabled="" value="<?php echo $line['task_dateClosed'];?>">
+				<input type="text" class="form-control" id="dateEnd" name="fDateEnd" disabled="" value="<?php echo $line['task_dateClosed'];?>">
 			</div>
 		<?php } else{ ?>
 			<div class="form-group">
@@ -68,17 +76,17 @@ $commentRes = dbRequest($commentReq, "select");
 	</form>
 
 	<!-- Comments table -->
-	<?php if($cLine = $commentRes->fetch()){ ?>
+	<?php if(count($commentTab) > 0){ ?>
 		<table class="table table-striped">
 			<thead>
 				<th>Date</th>
 				<th>Commentaire</th>
 			</thead>
 			<tbody>
-				<?php while($commentLine = $commentRes->fetch()){ ?>
+				<?php foreach ($commentTab as $comment){ ?>
 					<tr>
-						<td><?php echo $commentLine['comment_date'];?></td>
-						<td><?php echo $commentLine['comment_content'];?></td>
+						<td><?php echo $comment['date'];?></td>
+						<td><?php echo $comment['content'];?></td>
 					</tr>
 				<?php } ?>
 			</tbody>

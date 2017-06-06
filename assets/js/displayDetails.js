@@ -32,6 +32,9 @@ $( document ).ready(function() {
 		return false;
 	});
 
-	//On page load, trigger a click on the first project
-	$('.panel-title:first').trigger('click');
+	//On page load, if the window is big enough, trigger a click on the first project
+	if(window.innerWidth > 767) $('.panel-title:first').trigger('click');
+
+	//Enable the use of tooltips
+    $("body").tooltip({ selector: '[data-toggle=tooltip]' });
 });

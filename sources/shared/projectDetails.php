@@ -35,20 +35,20 @@ $journal = true;
 		</div>
 		<div class="form-group">
 			<label for="dateCreation">Date de création</label>
-			<input type="datetime" class="form-control" id="dateCreation" name="fDateCreation" disabled="" value="<?php echo $line['project_dateCreation'];?>">
+			<input type="text" class="form-control" id="dateCreation" name="fDateCreation" disabled="" value="<?php echo $line['project_dateCreation'];?>">
 		</div>
 		<div class="form-group">
 			<label for="dateStart">Date de début prévue</label>
-			<input type="datetime" class="form-control" id="dateStart" name="fDateStart" value="<?php echo $line['project_plannedBeginning'];?>">
+			<input type="text" class="form-control" id="dateStart" name="fDateStart" value="<?php echo $line['project_plannedBeginning'];?>">
 		</div>
 		<div class="form-group">
 			<label for="plannedEnd">Date de fin prévue</label>
-			<input type="datetime" class="form-control" id="plannedEnd" name="fPlannedEnd" value="<?php echo $line['project_plannedEnd'];?>">
+			<input type="text" class="form-control" id="plannedEnd" name="fPlannedEnd" value="<?php echo $line['project_plannedEnd'];?>">
 		</div>
 		<?php if($line['project_isClosed']){ ?>
 			<div class="form-group">
 				<label for="dateEnd">Date de fermeture</label>
-				<input type="datetime" class="form-control" id="dateEnd" name="fDateEnd" disabled="" value="<?php echo $line['project_dateClosed'];?>">
+				<input type="text" class="form-control" id="dateEnd" name="fDateEnd" disabled="" value="<?php echo $line['project_dateClosed'];?>">
 			</div>
 		<?php } else{ ?>
 			<button type="submit" class="btn btn-info pull-right">Soumettre</button>

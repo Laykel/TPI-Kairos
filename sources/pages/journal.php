@@ -32,6 +32,9 @@ Description: Journal page: closed projects, reopen button.
 								<td  class="task-title" id="<?php echo $task['task_id']; ?>" width="80%">
 									<?php echo $task['task_title']; ?>
 								</td>
+								<td width="5%">
+									<span class='glyphicon glyphicon-info-sign pull-right' data-toggle='tooltip' title='Cliquez sur ce titre pour avoir accès aux détails de cette tâche'></span>
+								</td>
 								<td width="15%">
 									<?php echo $task['task_timePassed']; ?>
 								</td>
@@ -48,7 +51,10 @@ Description: Journal page: closed projects, reopen button.
 								<td class="task-title" id="<?php echo $task['task_id']; ?>" width="80%">
 									<p><?php echo $task['task_title']; ?></p>
 								</td>
-								<td width="15%">
+								<td>
+									<span class='glyphicon glyphicon-info-sign pull-right' data-toggle='tooltip' title='Cliquez sur ce titre pour avoir accès aux détails de cette tâche'></span>
+								</td>
+								<td width="10%">
 									<p><?php echo $task['task_timePassed']; ?></p>
 								</td>
 							</tr>

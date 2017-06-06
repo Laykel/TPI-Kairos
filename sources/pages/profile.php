@@ -19,18 +19,22 @@ Description: Profile page: update form, remove account, current data.
                 <div class="form-group">
                     <label for="pseudo">Changer votre pseudonyme:</label>
                     <input type="text" class="form-control" id="pseudo" name="fPseudo" maxlength="45">
+                    <small id="pseudoInstructions" class="form-text text-muted">C'est ainsi que vous êtes identifié dans l'application. Maximum 45 caractères.</small>
                 </div>
                 <div class="form-group">
                     <label for="pswd">Changer votre adresse mail:</label>
                     <input type="email" class="form-control" id="email" name="fEmail" maxlength="254">
+                    <small id="emailInstructions" class="form-text text-muted">Cette information ne sera utilisée qu'en cas de perte de votre mot de passe.</small>
                 </div>
                 <div class="form-group">
                     <label for="pswd">Changer votre mot de passe:</label>
                     <input type="password" class="form-control" id="pswd" name="fPassword" maxlength="500">
+                    <small id="passwordInstructions" class="form-text text-muted">Minimum 6 caractères, doit contenir au moins une majuscule, une minuscule et un chiffre.</small>
                 </div>
                 <div class="form-group">
                     <label for="pswd">Confirmer votre nouveau mot de passe:</label>
                     <input type="password" class="form-control" id="pswd2" name="fPassword2" maxlength="500">
+                    <small id="password2Instructions" class="form-text text-muted">Doit être identique au premier.</small>
                 </div>
                 <button type="submit" class="btn btn-primary pull-right">Modifier les données</button>
             </form>

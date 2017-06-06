@@ -18,6 +18,7 @@ else{
 	$user_id = $_SESSION['user_id'];
 }
 
+//Get projects and tasks from DB
 $projects = array();
 $projectTab = getProjects($user_id, 0, $projects);
 
@@ -50,75 +51,46 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	}
 	//-------- End of data validation --------//
 
+	//Update project or task fields
 	if($qstring == ''){
-		//
-		if($fTitle != ''){
-			if(isset($fProject)){
-				$titleReq = "UPDATE project SET project_title = '".$fTitle."'
-							 WHERE project_id = ".$fProject;
-			}
-			else{
-				$titleReq = "UPDATE task SET task_title = '".$fTitle."'
-							 WHERE task_id = ".$fTask;
-			}
-			
-			dbRequest($titleReq, "update");
+
+		if(isset($fProject)){
+			$updateReq = "UPDATE project SET project_title='".$fTitle."', project_description='".$fDescription."'";
+
+			if($fDateStart == '') $updateReq .= ", project_plannedBeginning=NULL ";
+			else $updateReq .= ", project_plannedBeginning='".$fDateStart."'";
+
+			if($fPlannedEnd == '') $updateReq .= ", project_plannedEnd=NULL ";
+			else $updateReq .= ", project_plannedEnd='".$fPlannedEnd."' ";
+
+			$updateReq .= "WHERE project_id = ".$fProject;
 		}
-		//
-		if($fDescription != ''){
-			if(isset($fProject)){
-				$descReq = "UPDATE project SET project_description = '".$fDescription."'
-							 WHERE project_id = ".$fProject;
-			}
-			else{
-				$descReq = "UPDATE task SET task_description = '".$fDescription."'
-							 WHERE task_id = ".$fTask;
-			}
-			
-			dbRequest($descReq, "update");
+		else{
+			$updateReq = "UPDATE task SET task_title='".$fTitle."', task_description='".$fDescription."', task_timePassed='".$fTimePassed."'";
+
+			if($fDateStart == '') $updateReq .= ", task_plannedBeginning=NULL ";
+			else $updateReq .= ", task_plannedBeginning='".$fDateStart."'";
+
+			if($fPlannedEnd == '') $updateReq .= ", task_plannedEnd=NULL ";
+			else $updateReq .= ", task_plannedEnd='".$fPlannedEnd."' ";
+
+			$updateReq .= "WHERE task_id = ".$fTask;
 		}
-		//
-		if($fDateStart != ''){
-			if(isset($fProject)){
-				$dateReq = "UPDATE project SET project_plannedBeginning = '".$fDateStart."'
-							 WHERE project_id = ".$fProject;
-			}
-			else{
-				$dateReq = "UPDATE task SET task_plannedBeginning = '".$fDateStart."'
-							 WHERE task_id = ".$fTask;
-			}
-			
-			dbRequest($dateReq, "update");
-		}
-		//
-		if($fPlannedEnd != ''){
-			if(isset($fProject)){
-				$endReq = "UPDATE project SET project_plannedEnd = '".$fPlannedEnd."'
-							 WHERE project_id = ".$fProject;
-			}
-			else{
-				$endReq = "UPDATE task SET task_plannedEnd = '".$fPlannedEnd."'
-							 WHERE task_id = ".$fTask;
-			}
-			
-			dbRequest($endReq, "update");
-		}
-		//
-		if(isset($fTimePassed)){
-			$timeReq = "UPDATE task SET task_timePassed = '".$fTimePassed."'
-					   WHERE task_id = ".$fTask;
-			dbRequest($timeReq, "update");
-		}
+		
+		dbRequest($updateReq, "update");
+
+		//Reload page with success message
 		if($admin)
 			header('location:'.URL.'?page=home&changeSuccess&id='.$user_id);
 		else
 			header('location:'.URL.'?page=home&changeSuccess');
 	}
 	else{
+		//Reload page with error message(s)
 		if($admin)
-			header('location:../../?page=home&id='.$user_id.$qstring);
+			header('location:'.URL.'?page=home&id='.$user_id.$qstring);
 		else
-			header('location:../../?page=home'.$qstring);
+			header('location:'.URL.'?page=home'.$qstring);
 	}
 }
 ?>

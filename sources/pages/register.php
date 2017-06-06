@@ -22,19 +22,22 @@ Description: Register page: form.
 					<div class="form-group">
 						<label for="pseudo">Votre pseudonyme</label>
 						<input type="text" class="form-control" id="pseudo" name="fPseudo" maxlength="45">
-						<small id="pseudoInstructions" class="form-text text-muted">C'est ainsi que vous serez identifié dans l'application.</small>
+						<small id="pseudoInstructions" class="form-text text-muted">C'est ainsi que vous serez identifié dans l'application. Maximum 45 caractères.</small>
 					</div>
 					<div class="form-group">
 						<label for="email">Votre adresse e-mail</label>
 						<input type="email" class="form-control" id="email" name="fEmail" placeholder="exemple@test.ch" maxlength="254">
+						<small id="emailInstructions" class="form-text text-muted">Cette information ne sera utilisée qu'en cas de perte de votre mot de passe.</small>
 					</div>
 					<div class="form-group">
 						<label for="pswd">Votre mot de passe</label>
 						<input type="password" class="form-control" id="pswd" name="fPassword" maxlength="500">
+						<small id="passwordInstructions" class="form-text text-muted">Minimum 6 caractères, doit contenir au moins une majuscule, une minuscule et un chiffre.</small>
 					</div>
 					<div class="form-group">
 						<label for="pswd2">Confirmez votre mot de passe</label>
 						<input type="password" class="form-control" id="pswd2" name="fPassword2" maxlength="500">
+						<small id="password2Instructions" class="form-text text-muted">Doit être identique au premier.</small>
 					</div>
 					<button type="submit" class="btn btn-primary pull-right">S'inscrire</button>
 				</form>

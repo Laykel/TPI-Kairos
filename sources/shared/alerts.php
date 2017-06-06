@@ -42,7 +42,7 @@ if(isset($_GET['allEmpty'])){ ?>
 if(isset($_GET['titleEmpty'])){ ?>
 	<div class="alert alert-dismissible alert-warning">
 		<button type="button" class="close" data-dismiss="alert">&times;</button>
-		<strong>Erreur!</strong> Veuillez remplir au moins le champ "Titre".
+		<strong>Erreur!</strong> Le champ "Titre" ne peut pas être vide.
 	</div>
 <?php }
 

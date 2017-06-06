@@ -41,7 +41,7 @@ Description: Projects page: Projects and tasks, timers, update details.
 					<div class="panel-heading project-title" id="<?php echo $project['project_id'];?>">
 						<h3 class="panel-title">
 							<?php echo $project['project_title'];?>
-							<span class="glyphicon glyphicon-info-sign pull-right"></span>
+							<span class="glyphicon glyphicon-info-sign pull-right" data-toggle="tooltip" title="Cliquez sur ce titre pour avoir accès aux détails de ce projet"></span>
 						</h3>
 					</div>
 					<div class="panel-body panel-no-padding">
@@ -60,7 +60,11 @@ Description: Projects page: Projects and tasks, timers, update details.
 										</td>
 										<td class="task-title" id="<?php echo $task['task_id']; ?>" width="70%">
 											<?php echo $task['task_title'];?>
-											<?php if($task['task_plannedEnd'] < $datetime && $task['task_plannedEnd'] != '') echo "<span class='glyphicon glyphicon-time pull-right'></span>";?>
+										</td>
+										<td width="5%">
+											<?php if($task['task_plannedEnd'] < $datetime && $task['task_plannedEnd'] != '') echo "<span class='glyphicon glyphicon-time pull-right' data-toggle='tooltip' title='Cette tâche a dépassé son délai estimé'></span>";
+												else echo "<span class='glyphicon glyphicon-info-sign pull-right' data-toggle='tooltip' title='Cliquez sur ce titre pour avoir accès aux détails de cette tâche'></span>"; 
+											?>
 										</td>
 										<td width="10%" disabled>
 											<button class="btn btn-primary btn-xs timerPlay" id="<?php echo $task['task_id'];?>">
@@ -72,7 +76,7 @@ Description: Projects page: Projects and tasks, timers, update details.
 												<span class="glyphicon glyphicon-pause"></span>
 											</button>
 										</td>
-										<td id="timer" width="15%">
+										<td id="timer" width="10%">
 											<p class="timeDB"><?php echo $task['task_timePassed']; ?></p>
 											<p class="timeTimer" hidden=""><span class="sw_h<?php echo $task['task_id']; ?>">00</span>:<span class="sw_m<?php echo $task['task_id']; ?>">00</span>:<span class="sw_s<?php echo $task['task_id']; ?>">00</span></p>
 										</td>
@@ -82,7 +86,7 @@ Description: Projects page: Projects and tasks, timers, update details.
 								<!-- New task form -->
 								<form class="newTask" name="<?php echo $project['project_id'];?>">
 									<tr>
-										<td colspan="3">
+										<td colspan="4">
 											<input type="text" class="form-control newTaskTitle<?php echo $project['project_id'];?>" placeholder="Nouvelle tâche" maxlength="100">
 										</td>
 										<td width="15%">
@@ -98,11 +102,13 @@ Description: Projects page: Projects and tasks, timers, update details.
 										<td id="<?php echo $task['task_id']; ?>" width="5%">
 											<input type="checkbox" class="taskCBClosed" checked="">
 										</td>
-										<td class="task-title" id="<?php echo $task['task_id']; ?>" width="70%">
+										<td class="task-title" id="<?php echo $task['task_id']; ?>" colspan="2" width="70%">
 											<p><?php echo " ".$task['task_title']; ?></p>
 										</td>
-										<td></td>
-										<td width="15%">
+										<td>
+											<span class='glyphicon glyphicon-info-sign pull-right' data-toggle='tooltip' title='Cliquez sur ce titre pour avoir accès aux détails de cette tâche'></span>
+										</td>
+										<td width="10%">
 											<p><?php echo $task['task_timePassed']; ?></p>
 										</td>
 									</tr>
@@ -140,6 +146,8 @@ Description: Projects page: Projects and tasks, timers, update details.
 
 					<!-- Modal Body -->
 					<div class="modal-body">
+						<p>Un nouveau timer vient de commencer. Lorsque vous appuierez sur le bouton "Pause", le temps de ce dernier s'ajoutera au temps total passé sur cette tâche.</p>
+						<p>Vous pouvez ajouter un commentaire pour décrire cette session. Si vous ne voulez pas, appuyez sur "Non".</p>
 						<div class="form-group">
 							<label for="fComment">Commentaire:</label>
 							<textarea class="form-control" id="commentTask" rows="3" name="fComment" maxlength="200"></textarea>
@@ -188,6 +196,8 @@ $( document ).ready(function() {
 		var projectId = $(this).prop('name');
 		var title = $('.newTaskTitle'+projectId).val();
 
+		if(title == '') title = "Nouvelle tâche";
+
 		//Send projectID and title to PHP to insert task in DB
 		var request = $.ajax({
 			url: 'sources/shared/update.php',
@@ -205,6 +215,8 @@ $( document ).ready(function() {
 		e.preventDefault(); //Don't POST
 		var title = $('#projectTitle').val();
 		var user = $('#projectButton').prop('class');
+
+		if(title == '') title = "Nouveau projet";
 
 		//Send userID and title to PHP to insert in DB
 		var request = $.ajax({

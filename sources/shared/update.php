@@ -167,7 +167,7 @@ if(isset($forgottenPswd)){
 		$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 		$headers .= 'From: kairos@lwachter.mycpnv.ch';
 
-		$content = "Cher utilisateur,<br>Quelqu'un a demandé une réinitialisation du mot de passe lié à cette adresse e-mail.<br><br>Votre nouveau mot de passe est: ".$password."<br><br>Si vous n'avez pas demandé cette réinitialisation, ne vous inquiétez pas. Vous êtes la seule personne à recevoir ce mail, votre compte est donc en sécurité.<br><br>Meilleures salutations,<br>L'équipe Kairos";
+		$content = "Cher utilisateur,<br><br>Quelqu'un a demandé une réinitialisation du mot de passe lié à cette adresse e-mail.<br><br>Votre nouveau mot de passe est: ".$password."<br><br>Si vous n'avez pas demandé cette réinitialisation, ne vous inquiétez pas. Vous êtes la seule personne à recevoir ce mail, votre compte est donc en sécurité.<br><br>Meilleures salutations,<br>L'équipe Kairos";
 
 		//Send mail
 		mail($forgottenPswd, $subject, $content, $headers);
