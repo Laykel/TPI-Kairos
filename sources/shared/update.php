@@ -21,10 +21,12 @@ extract($post);
 
 //Add a comment
 if(isset($addComment)){
-	//Add comment to DB
-	$createReq = "INSERT INTO comment(comment_content, comment_date, task_fk)
-				VALUES('".$addComment."', '".$datetime."', ".$id.")";
-	dbRequest($createReq, "insert");
+	if($addComment != ''){
+		//Add comment to DB
+		$createReq = "INSERT INTO comment(comment_content, comment_date, task_fk)
+					VALUES('".$addComment."', '".$datetime."', ".$id.")";
+		dbRequest($createReq, "insert");
+	}
 }
 
 //Add a task to a project
@@ -176,13 +178,27 @@ if(isset($forgottenPswd)){
 
 //Remove an account
 if(isset($removeAccount)){
+	
 	//Get IDs of all the user's projects
 	$projectReq = "SELECT project_id FROM project 
 				   WHERE user_fk=".$removeAccount;
 	$projectRes = dbRequest($projectReq, "select");
 
-	//First remove the tasks of all the user's projects
 	while($line = $projectRes->fetch()){
+
+		//Get IDs of all the project's tasks
+		$taskReq = "SELECT task_id FROM task 
+					WHERE project_fk=".$line['project_id'];
+		$taskRes = dbRequest($taskReq, "select");
+
+		//First remove the comments of all the user's tasks
+		while($taskLine = $taskRes->fetch()){
+			$removeCommentReq = "DELETE FROM comment
+						  		 WHERE task_fk=".$taskLine['task_id'];
+			dbRequest($removeCommentReq, "delete");
+		}
+
+		//Then remove the tasks of all the user's projects
 		$removeReq = "DELETE FROM task
 					  WHERE project_fk=".$line['project_id'];
 		dbRequest($removeReq, "delete");

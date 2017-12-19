@@ -21,7 +21,7 @@ Description: Register page: form.
 				<form method="post" action="">
 					<div class="form-group">
 						<label for="pseudo">Votre pseudonyme</label>
-						<input type="text" class="form-control" id="pseudo" name="fPseudo" maxlength="45">
+						<input type="text" class="form-control" id="pseudo" name="fPseudo" placeholder="exemple" maxlength="45">
 						<small id="pseudoInstructions" class="form-text text-muted">C'est ainsi que vous serez identifié dans l'application. Maximum 45 caractères.</small>
 					</div>
 					<div class="form-group">

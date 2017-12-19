@@ -4,6 +4,14 @@ body{
 	padding-right: 0px !important;
 }
 
+textarea{
+	resize: none;
+}
+
+img{
+	border: solid 1px;
+}
+
 .navbar{
 	background: #2780E3;
 }
@@ -30,10 +38,6 @@ body{
 
 .project-title{
 	cursor:pointer;
-}
-
-textarea{
-	resize: none;
 }
 
 .modal{

@@ -58,18 +58,32 @@ Description: Login page: form, forgotten password mechanism.
 		</div>
 	</div>
 </div>
+<hr>
 
 <!-- Site description -->
-<hr>
 <div class="row">
-	<h2>Description du site</h2>
- 	
- 	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
- 	tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
- 	quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
- 	consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
- 	cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
- 	proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+	<div class="col-sm-6 col-sm-offset-3">
+
+		<h2>Description du site</h2>
+		<h3>Kairos projects</h3>
+		<p>Kairos est un site de gestion de tâche, avec un accent sur la gestion du temps.</p>
+		<br>
+		<p>Il est souvent important de savoir combien de temps on a passé sur tel ou tel élément d'un projet. <br>
+		Ce serait superbe de pouvoir planifier ses tâches et d'avoir en même temps une sorte de journal de travail automatique.</p>
+		<br>
+
+		<h3>La structure</h3>
+		<p>Kairos est construit pour être compris par tout le monde. Vous pouvez créer des projets, et dans ces projets, vous pouvez créer des tâches.</p>
+		<br>
+		<p>Chaque projet et chaque tâche a un certain nombre de paramètres supplémentaires qu'on peut remplir.</p>
+		<ul>
+			<li>Une description en plus du titre</li>
+			<li>La date prévue de commencement du projet/de la tâche</li>
+			<li>La date prévue de fin du projet/de la tâche</li>
+			<li>Dans le cas des tâches, le temps total passé dessus</li>
+			<li>Dans le cas des tâches, les commentaires entrés à chaque début de timer</li>
+		</ul>
+ 	</div>
 </div>
 
 <script type="text/javascript">
