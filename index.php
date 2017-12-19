@@ -10,7 +10,7 @@ session_start();
 //Definition of the path to the document root
 define('ROOT', dirname('index.php'));
 //Definition of the path to the site's index
-define('URL', "http://kairos");
+define('URL', "http://kairos.dev");
 //define('URL', "http://lwachter.mycpnv.ch");
 
 //Definition of the current page using the querystring
