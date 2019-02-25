@@ -24,7 +24,7 @@ $( document ).ready(function(){
 			url: 'sources/shared/update.php',
 			type: 'post',
 			data: {"reopen": projectId}
-		})
+		});
 		//When done, reload page
 		request.done(function(){
 			window.location.reload();

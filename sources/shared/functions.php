@@ -11,9 +11,8 @@
 function dbRequest($req, $type_req){
     try{
         //Connection to the tasking database
-        $connect = new PDO('mysql:host=localhost; dbname=kairos_db;charset=utf8', 'root', 'root');
-        //$connect = new PDO('mysql:host=localhost; dbname=lwachter_kairos;charset=utf8', 'lwachter_kairos', 'KNG7Vo5aW06vCBtr');
-        
+        $connect = new PDO('mysql:host=localhost; dbname=kairos_db;charset=utf8', '***', '***');
+
         //Allows to get more information from errors
         $connect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
@@ -21,14 +20,14 @@ function dbRequest($req, $type_req){
         echo 'Une erreur est survenue! '.$e->getMessage();
         die();
     }
-    
+
     //Execution of the request
     if($type_req == 'select'){
         //Execute a select req
         $res = $connect->query($req);
     }
     else{
-        //Execute a non-select req 
+        //Execute a non-select req
         if (false === $connect->exec($req)){
             return false;
         }

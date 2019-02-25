@@ -10,7 +10,7 @@ session_start();
 //Definition of the path to the document root
 define('ROOT', dirname('index.php'));
 //Definition of the path to the site's index
-define('URL', "http://kairos.dev");
+define('URL', "http://kairos.test");
 //define('URL', "http://lwachter.mycpnv.ch");
 
 //Definition of the current page using the querystring
@@ -21,7 +21,7 @@ if(isset($_GET['page']) && $_GET['page'] != ''){
 
 //Restrict access to login and register for unconnected users
 if(!isset($_SESSION['isConnected'])){
-	if($page != "login"  && $page != "register")
+	if($page != "login" && $page != "register")
 		header('location:'.URL.'?page=login&info=notco');
 }
 
